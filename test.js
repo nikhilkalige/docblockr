@@ -14,3 +14,5 @@ var x = js.parser.parse_var(fu);
 console.log(x);
 
 
+
+var asddd = "asdfasdfasdf"

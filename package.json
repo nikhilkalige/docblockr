@@ -1,0 +1,14 @@
+{
+  "name": "docblockr",
+  "main": "./lib/docblockr",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "activationEvents": ["docblockr:toggle"],
+  "repository": "https://github.com/atom/docblockr",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  }
+}

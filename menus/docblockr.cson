@@ -1,0 +1,16 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  '.overlayer':
+      'Enable docblockr': 'docblockr:toggle'
+
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'docblockr'
+      'submenu': [
+        { 'label': 'Toggle', 'command': 'docblockr:toggle' }
+      ]
+    ]
+  }
+]

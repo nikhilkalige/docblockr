@@ -9,3 +9,6 @@
 # https://atom.io/docs/latest/advanced/keymaps
 '.workspace':
   'ctrl-alt-o': 'docblockr:toggle'
+
+'.editor':
+    'tab': 'docblockr:expand'

@@ -8,7 +8,7 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
 '.workspace':
-  'ctrl-alt-o': 'docblockr:toggle'
+  'ctrl-alt-q': 'docblockr:toggle'
 
-'.editor':
-    'tab': 'docblockr:expand'
+'.editor:not(.mini)':
+    'ctrl-alt-o': 'docblockr:expand'

@@ -7,52 +7,60 @@
 //}
 var util = require('util');
 
-escape = function(str) {
+var escape = function(str) {
     return str.replace('$', '\$').replace('{', '\{').replace('}', '\}')
 }
 
+var read_line = function(editor, point) {
+    // TODO: no longer works
+    if(point >= editor.getText().length)
+        return;
+    return editor.lineForBufferRow(point.row);
+}
+
 function DocsParser(settings) {
-    this.settings = settings;
-    //this.setup_settings()
-    //this.name_override = None
-};
+    this.editor_settings = settings;
+    this.setup_settings();
+    this.name_override = null;
+}
 
 DocsParser.prototype.init = function(viewSettings) {
-    this.viewSettings = viewSettings
-    this.setupSettings()
-    this.nameOverride = None
-}
+    this.viewSettings = viewSettings;
+    this.setupSettings();
+    this.nameOverride = null;
+};
 
 DocsParser.prototype.is_existing_comment = function(line) {
     return line.search(/^\\s*\\*/);
-}
+};
 
 DocsParser.prototype.set_name_override = function(name) {
-    """ overrides the description of the function - used instead of parsed description """
+    // overrides the description of the function - used instead of parsed description
     this.name_override = name;
-}
+};
 
 DocsParser.prototype.get_name_override = function(){
     return this.name_override;
-}
+};
 
 DocsParser.prototype.parse = function(line) {
-    if this.viewSettings.get('jsdocs_simple_mode'){
+    if(this.viewSettings.get('jsdocs_simple_mode')) {
         return null;
     }
-    out = this.parse_function(line);  // (name, args, retval, options)
+    var out = this.parse_function(line);  // (name, args, retval, options)
     if (out) {
-        return this.format_function(*out);
+        return this.format_function(out);
     }
     out = this.parse_var(line);
     if (out) {
-        return this.format_var(*out);
+        return this.format_var(out);
     }
     return null;
-}
+};
 
-DocsParser.prototype.format_var = function(name, val, valType=None) {
-    out = [];
+DocsParser.prototype.format_var = function(name, val, valType) {
+    valType = typeof valType !== 'undefined' ? valType : null;
+    var out = [];
     var brace_open, brace_close, temp;
     if(this.settings.curlyTypes) {
         brace_open = '{';
@@ -62,11 +70,11 @@ DocsParser.prototype.format_var = function(name, val, valType=None) {
         brace_open = brace_close = '';
     }
     if (!valType) {
-        if(!val || (val === '') {  //quick short circuit
-            valType = "[type]";
+        if(!val || (val === '')) {  //quick short circuit
+            valType = '[type]';
         }
         else {
-            valType = this.guess_type_from_value(val) || this.guess_type_from_name(name) || "[type]";
+            valType = this.guess_type_from_value(val) || this.guess_type_from_name(name) || '[type]';
         }
     }
     if(this.inline) {
@@ -96,37 +104,37 @@ DocsParser.prototype.get_type_info = function(argType, argName) {
     }
     if(this.settings.typeInfo) {
         typeInfo = util.format('%s${1:%s}%s ' , brace_open,
-                                escape(argType || this.guess_type_from_name(argName) || "[type]"),
-                                brace_close,
+                                escape(argType || this.guess_type_from_name(argName) || '[type]'),
+                                brace_close
         );
     }
     return typeInfo;
-}
+};
 
-DocsParser.prototype.formatFunction = function(name, args, retval, options={}) {
-    out = []
-    if 'as_setter' in options:
-        out.append('@private')
-        return out
+DocsParser.prototype.formatFunction = function(name, args, retval, options) {
+    options = typeof options !== 'undefined' ? options : {};
+    var out = [];
+    if('as_setter' in options) {
+        out.append('@private');
+        return out;
+    }
+    var extraTagAfter = this.viewSettings.get('jsdocs_extra_tags_go_after') || false;
 
-    extraTagAfter = this.viewSettings.get("jsdocs_extra_tags_go_after") or False
+    var description = this.getNameOverride() || 
+        ('['+ this.escape(name) + (name ? ' ': '') + 'description]');
+    out.append('${1:' + description + '}');
 
-    description = this.getNameOverride() or ('[%s%sdescription]' % (escape(name), ' ' if name else ''))
-    out.append("${1:%s}" % description)
+    if (this.viewSettings.get('jsdocs_autoadd_method_tag') is true) {
+        out.append('@method '+ this.escape(name));
+    }
 
-    if (this.viewSettings.get("jsdocs_autoadd_method_tag") is True):
-        out.append("@%s %s" % (
-            "method",
-            escape(name)
-        ))
+    if(!extraTagAfter)
+        this.addExtraTags(out);
 
-    if not extraTagAfter:
-        this.addExtraTags(out)
-
-    # if there are arguments, add a @param for each
-    if (args):
-        # remove comments inside the argument list.
-        args = re.sub("/\*.*?\*/", '', args)
+    // if there are arguments, add a @param for each
+    if(args) {
+        // remove comments inside the argument list.
+        args = re.sub("/\*.*?\*/", '', args);
         for argType, argName in this.parseArgs(args):
             typeInfo = this.getTypeInfo(argType, argName)
 
@@ -138,6 +146,7 @@ DocsParser.prototype.formatFunction = function(name, args, retval, options={}) {
                 typeInfo,
                 escape(argName)
             ))
+    }
 
     # return value type might be already available in some languages but
     # even then ask language specific parser if it wants it listed
@@ -192,7 +201,7 @@ DocsParser.prototype.get_function_return_type = function(name, retval) {
         return this.settings.bool;
 
     return (this.guess_type_from_name(name) || false);
-}
+};
 
 DocsParser.prototype.parse_args = function(args) {
     """
@@ -290,56 +299,75 @@ DocsParser.prototype.get_matching_notations = function(name) {
     //return list(filter(checkMatch, this.viewSettings.get('jsdocs_notation_map', [])))
 }
 
-DocsParser.prototype.get_definition = function(view, pos) {
+DocsParser.prototype.get_definition = function(editor, pos) {
     //TODO:
-    """
-    get a relevant definition starting at the given point
-    returns string
-    """
+    // get a relevant definition starting at the given point
+    // returns string
     var maxLines = 25;  //# don't go further than this
     var openBrackets = 0;
     var definition = '';
 
+    // make pos writable
+    //pos = pos.copy();
+
     // count the number of open parentheses
-    count_brackets = function(total, bracket) {
+    var count_brackets = function(total, bracket) {
         if(bracket == '(')
            return total + 1;
         else
             return total - 1;
+    };
+
+    for(var i=0; i < maxLines; i++) {
+        var line = read_line(editor, pos);
+        if(line == null)
+            break;
+
+        //pos += (line.length + 1);
+        pos.row+= 1;
+        // strip comments
+        line = line.replace(/\/\/.*/, '');
+        line = line.replace(/\/\*.*\*\//, '');
+
+        var searchForBrackets = line;
+        var opener;
+        // on the first line, only start looking from *after* the actual function starts. This is
+        // needed for cases like this:
+        // (function (foo, bar) { ... })
+        if(definition === '') {
+            if(this.settings.fnOpener) {
+                opener = this.settings.fnOpener.exec(line);
+            }
+            else {
+                opener = false;
+            }
+            if((opener >= 0) && (opener != null)){
+                // ignore everything before the function opener
+                searchForBrackets = line.slice(opener.index);
+            }
+        }
+        var regex = new RegExp('[()]', 'g');
+        var Brackets = [];
+        var match;
+        while((match = regex.exec(searchForBrackets)) !== null) {
+            Brackets.push(match); 
+        }
+        openBrackets = Brackets.reduce(count_brackets, openBrackets);
+
+        definition += line;
+        if(openBrackets === 0)
+            break;
     }
-
-    for i in range(0, maxLines):
-        line = read_line(view, pos)
-        if line is None:
-            break
-
-        pos += len(line) + 1
-        # strip comments
-        line = re.sub(r"//.*",     "", line)
-        line = re.sub(r"/\*.*\*/", "", line)
-
-        searchForBrackets = line
-
-        # on the first line, only start looking from *after* the actual function starts. This is
-        # needed for cases like this:
-        # (function (foo, bar) { ... })
-        if definition == '':
-            opener = re.search(this.settings['fnOpener'], line) if this.settings['fnOpener'] else False
-            if opener:
-                # ignore everything before the function opener
-                searchForBrackets = line[opener.start():]
-
-        openBrackets = reduce(countBrackets, re.findall('[()]', searchForBrackets), openBrackets)
-
-        definition += line
-        if openBrackets == 0:
-            break
-    return definition
+    return definition;
 }
 
-function JsParser() {
-    this.setup_settings();
+function JsParser(settings) {
+    //this.setup_settings();
+    // call parent constructor
+    DocsParser.call(this, settings);
 }
+
+JsParser.prototype = Object.create(DocsParser.prototype);
 
 JsParser.prototype.setup_settings = function() {
     var identifier = '[a-zA-Z_$][a-zA-Z_$0-9]*';
@@ -431,4 +459,4 @@ JsParser.prototype.guess_type_from_value = function(val) {
 
 
 
-module.exports.parser = new JsParser();
+module.exports.DocsParser = JsParser;

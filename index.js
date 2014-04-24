@@ -31,20 +31,20 @@ DocsParser.prototype.init = function(viewSettings) {
 };
 
 DocsParser.prototype.is_existing_comment = function(line) {
-    return line.search(/^\\s*\\*/);
+    return ((line.search(/^\s*\*/) >=0) ? true : false);
 };
 
 DocsParser.prototype.set_name_override = function(name) {
     // overrides the description of the function - used instead of parsed description
     this.name_override = name;
 };
-
+/*
 DocsParser.prototype.get_name_override = function(){
     return this.name_override;
 };
-
+*/
 DocsParser.prototype.parse = function(line) {
-    if(this.viewSettings.get('jsdocs_simple_mode')) {
+    if(this.editor_settings.simple_mode === true) {
         return null;
     }
     var out = this.parse_function(line);  // (name, args, retval, options)
@@ -57,7 +57,7 @@ DocsParser.prototype.parse = function(line) {
     }
     return null;
 };
-
+/*
 DocsParser.prototype.format_var = function(name, val, valType) {
     valType = typeof valType !== 'undefined' ? valType : null;
     var out = [];
@@ -91,7 +91,7 @@ DocsParser.prototype.format_var = function(name, val, valType) {
     }
     return out;
 };
-
+*//*
 DocsParser.prototype.get_type_info = function(argType, argName) {
     var typeInfo = '';
     var brace_open, brace_close;
@@ -110,7 +110,7 @@ DocsParser.prototype.get_type_info = function(argType, argName) {
     }
     return typeInfo;
 };
-
+*//*
 DocsParser.prototype.formatFunction = function(name, args, retval, options) {
     options = typeof options !== 'undefined' ? options : {};
     var out = [];
@@ -134,7 +134,9 @@ DocsParser.prototype.formatFunction = function(name, args, retval, options) {
     // if there are arguments, add a @param for each
     if(args) {
         // remove comments inside the argument list.
-        args = re.sub("/\*.*?\*/", '', args);
+        args = re.sub("/\*.*?\*/
+
+            /*", '', args);
         for argType, argName in this.parseArgs(args):
             typeInfo = this.getTypeInfo(argType, argName)
 
@@ -188,7 +190,7 @@ DocsParser.prototype.formatFunction = function(name, args, retval, options) {
 
     return out
 };
-
+*//*
 DocsParser.prototype.get_function_return_type = function(name, retval) {
     """ returns None for no return type. False meaning unknown, or a string """
     if(name.search(/[A-Z]/))
@@ -202,7 +204,7 @@ DocsParser.prototype.get_function_return_type = function(name, retval) {
 
     return (this.guess_type_from_name(name) || false);
 };
-
+*//*
 DocsParser.prototype.parse_args = function(args) {
     """
     an array of tuples, the first being the best guess at the type, the second being the name
@@ -253,7 +255,7 @@ DocsParser.prototype.parse_args = function(args) {
         out.append((this.getArgType(arg), this.getArgName(arg)))
     return out
 }
-
+*//*
 DocsParser.prototype.get_arg_type = function(arg) {
     return null;
 }
@@ -298,7 +300,8 @@ DocsParser.prototype.get_matching_notations = function(name) {
     //for
     //return list(filter(checkMatch, this.viewSettings.get('jsdocs_notation_map', [])))
 }
-
+*/
+    //pos = pos.copy();
 DocsParser.prototype.get_definition = function(editor, pos) {
     //TODO:
     // get a relevant definition starting at the given point
@@ -411,7 +414,7 @@ JsParser.prototype.parse_function = function(line) {
     console.log(name);
     return [name, args, null];
 };
-
+/*
 JsParser.prototype.parse_var = function(line) {
         //   var foo = blah,
         //       foo = blah;
@@ -455,8 +458,8 @@ JsParser.prototype.guess_type_from_value = function(val) {
     }
     return null;
 };
+*/
 
-
-
-
-module.exports.DocsParser = JsParser;
+module.exports = {
+    JsParser: JsParser,
+};

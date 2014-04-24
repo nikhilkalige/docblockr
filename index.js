@@ -38,11 +38,11 @@ DocsParser.prototype.set_name_override = function(name) {
     // overrides the description of the function - used instead of parsed description
     this.name_override = name;
 };
-/*
+
 DocsParser.prototype.get_name_override = function(){
     return this.name_override;
 };
-*/
+
 DocsParser.prototype.parse = function(line) {
     if(this.editor_settings.simple_mode === true) {
         return null;
@@ -57,7 +57,7 @@ DocsParser.prototype.parse = function(line) {
     }
     return null;
 };
-/*
+
 DocsParser.prototype.format_var = function(name, val, valType) {
     valType = typeof valType !== 'undefined' ? valType : null;
     var out = [];
@@ -91,7 +91,7 @@ DocsParser.prototype.format_var = function(name, val, valType) {
     }
     return out;
 };
-*//*
+
 DocsParser.prototype.get_type_info = function(argType, argName) {
     var typeInfo = '';
     var brace_open, brace_close;
@@ -110,152 +110,166 @@ DocsParser.prototype.get_type_info = function(argType, argName) {
     }
     return typeInfo;
 };
-*//*
+
 DocsParser.prototype.formatFunction = function(name, args, retval, options) {
-    options = typeof options !== 'undefined' ? options : {};
+    options = (typeof options !== 'undefined') ? options : {};
     var out = [];
-    if('as_setter' in options) {
-        out.append('@private');
+    var i, len, format_str;
+    if(options.indexOf('as_setter') > -1) {
+        out.push('@private');
         return out;
     }
-    var extraTagAfter = this.viewSettings.get('jsdocs_extra_tags_go_after') || false;
+    var extra_tag_after = this.editor_settings.extra_tags_go_after || false;
 
-    var description = this.getNameOverride() || 
-        ('['+ this.escape(name) + (name ? ' ': '') + 'description]');
-    out.append('${1:' + description + '}');
+    var description = this.get_name_override() || ('['+ this.escape(name) + (name ? ' ': '') + 'description]');
+    out.push('${1:' + description + '}');
 
-    if (this.viewSettings.get('jsdocs_autoadd_method_tag') is true) {
-        out.append('@method '+ this.escape(name));
+    if (this.editor_settings.autoadd_method_tag) {
+        out.push('@method '+ this.escape(name));
     }
 
-    if(!extraTagAfter)
-        this.addExtraTags(out);
+    if(!extra_tag_after)
+        this.add_extra_tags(out);
 
     // if there are arguments, add a @param for each
     if(args) {
         // remove comments inside the argument list.
-        args = re.sub("/\*.*?\*/
+        args = args.replace(/\/\*.*?\*\//,'');
+        var parsed_args = this.parse_args(args);
+        for (i = 0; len = parsed_args.length,i < len; i++) {
+            var arg_type = parsed_args[i][0];
+            var arg_name = parsed_args[i][1];
 
-            /*", '', args);
-        for argType, argName in this.parseArgs(args):
-            typeInfo = this.getTypeInfo(argType, argName)
-
-            format_str = "@param %s%s"
-            if (this.viewSettings.get('jsdocs_param_description')):
-                format_str += " ${1:[description]}"
-
-            out.append(format_str % (
-                typeInfo,
-                escape(argName)
-            ))
+            type_info = this.get_type_info(arg_type, arg_name);
+            format_str = '@param %s%s';
+            //var str = '@param ' + type_info + escape(arg_name);
+            if(this.editor_settings.param_description)
+                //str+= ' ${1:[description]}';
+                format_str += ' ${1:[description]}';
+            //out.push(str);
+            out.push(util.format(format_str, type_info, escape(arg_name)));
+        }
     }
 
-    # return value type might be already available in some languages but
-    # even then ask language specific parser if it wants it listed
-    retType = this.getFunctionReturnType(name, retval)
-    if retType is not None:
-        typeInfo = ''
-        if this.settings['typeInfo']:
-            typeInfo = ' %s${1:%s}%s' % (
-                "{" if this.settings['curlyTypes'] else "",
-                retType or "[type]",
-                "}" if this.settings['curlyTypes'] else ""
-            )
-        format_args = [
-            this.viewSettings.get('jsdocs_return_tag') or '@return',
-            typeInfo
-        ]
+    // return value type might be already available in some languages but
+    // even then ask language specific parser if it wants it listed
+    var ret_type = this.get_function_return_type(name, retval);
+    if(ret_type !== null) {
+        var type_info = '';
+        if(this.settings.typeInfo)
+            //type_info = ' ' + (this.settings.curlyTypes ? '{' : '') + '${1:' + (ret_type || '[type]') + (this.settings.curlyTypes ? '}' : '');
+            type_info = util.format(' %s${1:%s}%s', (this.settings.curlyTypes ? '{' : ''), 
+                                                    '${1:' + (ret_type || '[type]'), 
+                                                    (this.settings.curlyTypes ? '}' : '')
+                                    );
 
-        if (this.viewSettings.get('jsdocs_return_description')):
-            format_str = "%s%s %s${1:[description]}"
-            third_arg = ""
+        var format_args = [
+            (this.editor_settings.return_tag || '@return'),
+            type_info
+        ];
+        
+        if (this.editor_settings.return_description) {
+            format_str = '%s%s %s${1:[description]}';
+            var third_arg = '';
 
-            # the extra space here is so that the description will align with the param description
-            if args and this.viewSettings.get('jsdocs_align_tags') == 'deep':
-                if not this.viewSettings.get('jsdocs_per_section_indent'):
-                    third_arg = " "
+            // the extra space here is so that the description will align with the param description
+            if(args && (this.editor_settings.align_tags == 'deep')) {
+                if(!this.editor_settings.per_section_indent)
+                    third_arg = ' ';
+            }
 
-            format_args.append(third_arg)
-        else:
-            format_str = "%s%s"
+            format_args.push(third_arg);
+        }
+        else
+            format_str = '%s%s';
+        
+        // TODO
+        out.push(util.format(format_str, format_args));
+    }
+    var matching_names = this.get_matching_notations(name);
+    for (i = 0; len = matching_names.length,i < len; i++) {
+        var notation = matching_names[i];
+        if(notation.indexOf('tags') > -1)
+            out.concat(notation.args);
+    }
 
-        out.append(format_str % tuple(format_args))
+    if(extra_tag_after)
+        this.add_extra_tags(out);
 
-    for notation in this.getMatchingNotations(name):
-        if 'tags' in notation:
-            out.extend(notation['tags'])
-
-    if extraTagAfter:
-        this.addExtraTags(out)
-
-    return out
+    return out;
 };
-*//*
+
 DocsParser.prototype.get_function_return_type = function(name, retval) {
-    """ returns None for no return type. False meaning unknown, or a string """
-    if(name.search(/[A-Z]/))
+    // returns None for no return type. False meaning unknown, or a string
+    if(name.search(/[A-Z]/) > -1)
         return null;  // no return, but should add a class
 
-    if (name.search(/[$_]?(?:set|add)($|[A-Z_])/))
+    if(name.search(/[$_]?(?:set|add)($|[A-Z_])/) > -1)
         return null;     // setter/mutator, no return
 
-    if name.match(/[$_]?(?:is|has)($|[A-Z_])/)  //functions starting with 'is' or 'has'
+    if(name.search(/[$_]?(?:is|has)($|[A-Z_])/))  //functions starting with 'is' or 'has'
         return this.settings.bool;
 
     return (this.guess_type_from_name(name) || false);
 };
-*//*
+
 DocsParser.prototype.parse_args = function(args) {
-    """
+    /*
     an array of tuples, the first being the best guess at the type, the second being the name
-    """
-    out = []
+    */
+    var out = [];
+    if(!args)
+        return out;
+    // the current token
+    var current = '';
+    // characters which open a section inside which commas are not separators between different arguments
+    var open_quotes  = '"\'<(';
+    // characters which close the the section. The position of the character here should match the opening
+    // indicator in `openQuotes`
+    var close_quotes = '"\'>)';
+    var matching_quote = '';
+    var inside_quotes = false;
+    var next_is_literal = false;
+    var blocks = [];
 
-    if not args:
-        return out
+    var i, len;
+    for (i = 0; len = args.length,i < len; i++) {
+        if(next_is_literal) {// previous char was a \
+            current+= args[i];
+            next_is_literal = false;
+        }
+        else if(args[i] == '\\') {
+            next_is_literal = true;
+        }
+        else if(inside_quotes) {
+            current+= args[i];
+            if(char === matching_quote)
+                inside_quotes = false;
+        }
+        else {
+            if(args[i] == ',') {
+                blocks.push(current.trim());
+                current = '';
+            }
+            else {
+                current+= args[i];
+                var quote_index = open_quotes.indexOf(args[i]);
+                if(quote_index > -1) {
+                    matching_quote = close_quotes[quote_index];
+                    inside_quotes = true;
+                }
+            }
+        }
+    }
+    blocks.push(current.trim());
 
-    # the current token
-    current = ''
-
-    # characters which open a section inside which commas are not separators between different arguments
-    openQuotes  = '"\'<('
-    # characters which close the the section. The position of the character here should match the opening
-    # indicator in `openQuotes`
-    closeQuotes = '"\'>)'
-
-    matchingQuote = ''
-    insideQuotes = False
-    nextIsLiteral = False
-    blocks = []
-
-    for char in args:
-        if nextIsLiteral:  # previous char was a \
-            current += char
-            nextIsLiteral = False
-        elif char == '\\':
-            nextIsLiteral = True
-        elif insideQuotes:
-            current += char
-            if char == matchingQuote:
-                insideQuotes = False
-        else:
-            if char == ',':
-                blocks.append(current.strip())
-                current = ''
-            else:
-                current += char
-                quoteIndex = openQuotes.find(char)
-                if quoteIndex > -1:
-                    matchingQuote = closeQuotes[quoteIndex]
-                    insideQuotes = True
-
-    blocks.append(current.strip())
-
-    for arg in blocks:
-        out.append((this.getArgType(arg), this.getArgName(arg)))
-    return out
+    for (i = 0; len = blocks.length,i < len; i++) {
+        var arg = blocks[i];
+        out.push((this.get_arg_type(arg), this.get_arg_name(arg)));
+    }
+    return out;
 }
-*//*
+
 DocsParser.prototype.get_arg_type = function(arg) {
     return null;
 }
@@ -265,42 +279,43 @@ DocsParser.prototype.get_arg_name = function(arg) {
 }
 
 DocsParser.prototype.add_extra_tags = function(out) {
-    extraTags = this.viewSettings.get('jsdocs_extra_tags', [])
-    if (extraTags.length > 0)
-        out.concat(extraTags);
+    var extra_tags = this.editor_settings.extra_tags || [];
+    if (extra_tags.length > 0)
+        out.concat(extra_tags);
 }
 
 DocsParser.prototype.guess_type_from_name = function(name) {
-    matches = this.get_matching_notations(name);
-    if(matches.length) {
-        rule = matches[0];
-        if(rule.indexOf('type') >= 0)
-            return (this.settings[rule['type']] if rule['type'] in this.settings else rule['type']
+    var matches = this.get_matching_notations(name);
+    if(matches.length > 0) {
+        var rule = matches[0];
+        if(rule.indexOf('type') > -1)
+            return (this.settings.indexOf(rule.type) > -1) ? this.settings.rule.type : rule.type;
     }
-    if (name.search("(?:is|has)[A-Z_]"))
+    if(name.search('(?:is|has)[A-Z_]') > -1)
         return this.settings.bool;
 
-    if(name.search("^(?:cb|callback|done|next|fn)$"))
+    if(name.search('^(?:cb|callback|done|next|fn)$') > -1)
         return this.settings.function;
+    
     return false;
 }
 
 DocsParser.prototype.get_matching_notations = function(name) {
-    checkMatch = function(rule) {
-        if(rule.indexOf('prefix') >= 0) {
-            var regex = new RegExp(rule['prefix']);
-            if(rule['prefix'].search('.*[a-z]')) {
+    var check_match = function(rule) {
+        if(rule.indexOf('prefix') > -1) {
+            //TODO :escape prefix
+            var regex = new RegExp(rule.prefix);
+            if(rule.prefix.search('.*[a-z]') > -1)
                 regex = new RegExp(regex.source + (/(?:[A-Z_]|$)/).source);
-            return name.search(regex);
+            return regex.exec(name);
         }
-        else if(rule.indexOf('regex') >= 0)
-            return name.search(rule['regex']);
-    }
-    //TODO:
-    //for
-    //return list(filter(checkMatch, this.viewSettings.get('jsdocs_notation_map', [])))
+        else if(rule.indexOf('regex') > -1)
+            return rule.regex.exec(name);
+    };
+    
+    return (this.editor_settings.notation_map || []).filter(check_match);
 }
-*/
+
     //pos = pos.copy();
 DocsParser.prototype.get_definition = function(editor, pos) {
     //TODO:
@@ -414,7 +429,7 @@ JsParser.prototype.parse_function = function(line) {
     console.log(name);
     return [name, args, null];
 };
-/*
+
 JsParser.prototype.parse_var = function(line) {
         //   var foo = blah,
         //       foo = blah;
@@ -432,11 +447,15 @@ JsParser.prototype.parse_var = function(line) {
 };
 
 JsParser.prototype.guess_type_from_value = function(val) {
-    //lowerPrimitives = this.viewSettings.get('jsdocs_lower_case_primitives') or False
-    //shortPrimitives = this.viewSettings.get('jsdocs_short_primitives') or False
+    var lower_primitives = this.editor_settings.lower_case_primitives || false;
+    var short_primitives = this.editor_settings.short_primitives || false;
+
+    var capitalize = function(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    };
     var var_type = typeof(val);
     if((var_type === 'string') || (var_type === 'number')) {
-        return var_type;
+        return (lower_primitives ? var_type : capitalize(var_type));
     }
     if(val[0] == '[') {
         return 'Array';
@@ -444,21 +463,22 @@ JsParser.prototype.guess_type_from_value = function(val) {
     if(val[0] == '{') {
         return 'Object';
     }
-    if((val === true) || (val === false)) {
-        return 'Boolean';
+    if((val == 'true') || (val == 'false')) {
+        var ret_val = (short_primitives ? 'Bool' : 'Boolean');
+        return (lower_primitives ? ret_val : capitalize(ret_val));
     }
     var regex = new RegExp('RegExp\\b|\\\/[^\\/]');
     if(regex.test(val)) {
         return 'RegExp';
     }
     if(val.slice(0, 4) == 'new ') {
-        var regex = new RegExp('new (' + this.settings.fnIdentifier + ')');
+        regex = new RegExp('new (' + this.settings.fnIdentifier + ')');
         var matches = regex.exec(val);
         return (matches[0] && matches[1]) || null;
     }
     return null;
 };
-*/
+
 
 module.exports = {
     JsParser: JsParser,

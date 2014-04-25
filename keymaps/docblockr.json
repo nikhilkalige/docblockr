@@ -1,0 +1,10 @@
+{
+    ".workspace": {
+        "ctrl-alt-q": "docblockr:toggle"
+    },
+
+    ".editor:not(.mini)": {
+        "tab": "docblockr:toggle",
+        "enter": "docblockr:toggle"
+    }
+}

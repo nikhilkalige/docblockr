@@ -3,7 +3,7 @@
   "main": "./lib/docblockr",
   "version": "0.2.0",
   "description": "A helper package for writing documentation",
-  "repository": "https://github.com/atom/docblockr",
+  "repository": "https://github.com/nikhilkalige/docblockr",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"

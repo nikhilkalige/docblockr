@@ -49,7 +49,7 @@ DocsParser.prototype.parse = function(line) {
     }
     var out = this.parse_function(line);  // (name, args, retval, options)
     if (out) {
-        return this.format_function(out);
+        return this.format_function(out.name, out.args, out.retval);
     }
     out = this.parse_var(line);
     if (out) {
@@ -111,21 +111,21 @@ DocsParser.prototype.get_type_info = function(argType, argName) {
     return typeInfo;
 };
 
-DocsParser.prototype.formatFunction = function(name, args, retval, options) {
+DocsParser.prototype.format_function = function(name, args, retval, options) {
     options = (typeof options !== 'undefined') ? options : {};
     var out = [];
     var i, len, format_str;
-    if(options.indexOf('as_setter') > -1) {
+    if(options.hasOwnProperty('as_setter')) {
         out.push('@private');
         return out;
     }
     var extra_tag_after = this.editor_settings.extra_tags_go_after || false;
 
-    var description = this.get_name_override() || ('['+ this.escape(name) + (name ? ' ': '') + 'description]');
+    var description = this.get_name_override() || ('['+ escape(name) + (name ? ' ': '') + 'description]');
     out.push('${1:' + description + '}');
 
     if (this.editor_settings.autoadd_method_tag) {
-        out.push('@method '+ this.escape(name));
+        out.push('@method '+ escape(name));
     }
 
     if(!extra_tag_after)
@@ -159,7 +159,7 @@ DocsParser.prototype.formatFunction = function(name, args, retval, options) {
         if(this.settings.typeInfo)
             //type_info = ' ' + (this.settings.curlyTypes ? '{' : '') + '${1:' + (ret_type || '[type]') + (this.settings.curlyTypes ? '}' : '');
             type_info = util.format(' %s${1:%s}%s', (this.settings.curlyTypes ? '{' : ''), 
-                                                    '${1:' + (ret_type || '[type]'), 
+                                                    (ret_type || '[type]'), 
                                                     (this.settings.curlyTypes ? '}' : '')
                                     );
 
@@ -184,7 +184,11 @@ DocsParser.prototype.formatFunction = function(name, args, retval, options) {
             format_str = '%s%s';
         
         // TODO
-        out.push(util.format(format_str, format_args));
+        //out.push(util.format(format_str, format_args));
+        format_args.forEach(function(element) {
+            format_str = util.format(format_str, element);
+        });
+        out.push(format_str);
     }
     var matching_names = this.get_matching_notations(name);
     for (i = 0; len = matching_names.length,i < len; i++) {
@@ -207,7 +211,7 @@ DocsParser.prototype.get_function_return_type = function(name, retval) {
     if(name.search(/[$_]?(?:set|add)($|[A-Z_])/) > -1)
         return null;     // setter/mutator, no return
 
-    if(name.search(/[$_]?(?:is|has)($|[A-Z_])/))  //functions starting with 'is' or 'has'
+    if(name.search(/[$_]?(?:is|has)($|[A-Z_])/) > -1)  //functions starting with 'is' or 'has'
         return this.settings.bool;
 
     return (this.guess_type_from_name(name) || false);
@@ -234,26 +238,27 @@ DocsParser.prototype.parse_args = function(args) {
 
     var i, len;
     for (i = 0; len = args.length,i < len; i++) {
+        var character = args.charAt(i);
         if(next_is_literal) {// previous char was a \
-            current+= args[i];
+            current+= character;
             next_is_literal = false;
         }
-        else if(args[i] == '\\') {
+        else if(character == '\\') {
             next_is_literal = true;
         }
         else if(inside_quotes) {
-            current+= args[i];
-            if(char === matching_quote)
+            current+= character;
+            if(character === matching_quote)
                 inside_quotes = false;
         }
         else {
-            if(args[i] == ',') {
+            if(character == ',') {
                 blocks.push(current.trim());
                 current = '';
             }
             else {
-                current+= args[i];
-                var quote_index = open_quotes.indexOf(args[i]);
+                current+= character;
+                var quote_index = open_quotes.indexOf(character);
                 if(quote_index > -1) {
                     matching_quote = close_quotes[quote_index];
                     inside_quotes = true;
@@ -265,7 +270,7 @@ DocsParser.prototype.parse_args = function(args) {
 
     for (i = 0; len = blocks.length,i < len; i++) {
         var arg = blocks[i];
-        out.push((this.get_arg_type(arg), this.get_arg_name(arg)));
+        out.push([this.get_arg_type(arg), this.get_arg_name(arg)]);
     }
     return out;
 }
@@ -427,7 +432,11 @@ JsParser.prototype.parse_function = function(line) {
     var name = matches[1] || matches[2] || '';
     var args = matches[3];
     console.log(name);
-    return [name, args, null];
+    return {
+        name: name,
+        args: args,
+        retval: null
+    };
 };
 
 JsParser.prototype.parse_var = function(line) {
@@ -482,4 +491,5 @@ JsParser.prototype.guess_type_from_value = function(val) {
 
 module.exports = {
     JsParser: JsParser,
+    escape: escape,
 };

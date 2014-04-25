@@ -1,16 +1,12 @@
-/**
- *      We will be creating a basic parser for function and returning the doc string
- */
 'use strict';
-//module.exports.dockblockr = function(data, lang) {
-//   console.log(data)
-//}
+
 var util = require('util');
 
 var escape = function(str) {
     return str.replace('$', '\$').replace('{', '\{').replace('}', '\}')
 }
 
+/* Move this to worker */
 var read_line = function(editor, point) {
     // TODO: no longer works
     if(point >= editor.getText().length)
@@ -53,7 +49,7 @@ DocsParser.prototype.parse = function(line) {
     }
     out = this.parse_var(line);
     if (out) {
-        return this.format_var(out);
+        return this.format_var(out.name, out.val);
     }
     return null;
 };
@@ -273,21 +269,21 @@ DocsParser.prototype.parse_args = function(args) {
         out.push([this.get_arg_type(arg), this.get_arg_name(arg)]);
     }
     return out;
-}
+};
 
 DocsParser.prototype.get_arg_type = function(arg) {
     return null;
-}
+};
 
 DocsParser.prototype.get_arg_name = function(arg) {
     return arg;
-}
+};
 
 DocsParser.prototype.add_extra_tags = function(out) {
     var extra_tags = this.editor_settings.extra_tags || [];
     if (extra_tags.length > 0)
         out.concat(extra_tags);
-}
+};
 
 DocsParser.prototype.guess_type_from_name = function(name) {
     var matches = this.get_matching_notations(name);
@@ -303,7 +299,7 @@ DocsParser.prototype.guess_type_from_name = function(name) {
         return this.settings.function;
     
     return false;
-}
+};
 
 DocsParser.prototype.get_matching_notations = function(name) {
     var check_match = function(rule) {
@@ -319,9 +315,8 @@ DocsParser.prototype.get_matching_notations = function(name) {
     };
     
     return (this.editor_settings.notation_map || []).filter(check_match);
-}
+};
 
-    //pos = pos.copy();
 DocsParser.prototype.get_definition = function(editor, pos) {
     //TODO:
     // get a relevant definition starting at the given point
@@ -382,7 +377,7 @@ DocsParser.prototype.get_definition = function(editor, pos) {
             break;
     }
     return definition;
-}
+};
 
 function JsParser(settings) {
     //this.setup_settings();
@@ -452,7 +447,10 @@ JsParser.prototype.parse_var = function(line) {
         return null;
     }
     // variable name, variable value
-    return [matches[1], matches[2].trim()];
+    return {
+        name: matches[1], 
+        val: matches[2].trim()
+    };
 };
 
 JsParser.prototype.guess_type_from_value = function(val) {
@@ -462,8 +460,13 @@ JsParser.prototype.guess_type_from_value = function(val) {
     var capitalize = function(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
-    var var_type = typeof(val);
-    if((var_type === 'string') || (var_type === 'number')) {
+    var var_type = !isNaN(val);
+    if(var_type) {
+        var_type = 'number';
+        return (lower_primitives ? var_type : capitalize(var_type));
+    }
+    if((val[0] === '\'') || (val[0] === '"')) {
+        var_type = 'string';
         return (lower_primitives ? var_type : capitalize(var_type));
     }
     if(val[0] == '[') {

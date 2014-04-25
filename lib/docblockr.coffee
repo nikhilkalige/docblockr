@@ -27,16 +27,10 @@ module.exports =
 
     docblockrView: null
 
-    #activate: (state) ->
-    #    @docblockrView = new DocblockrView(state.docblockrViewState)
-
-    #deactivate: ->
-    #    @docblockrView.destroy()
-
-    #serialize: ->
-    #    docblockrViewState: @docblockrView.serialize()
-
     activate: ->
-        console.log "activate"
-        return @atomJssHint = new DocblockrWorker()
+        return @Docblockr = new DocblockrWorker()
+
+    deactivate: ->
+        @Docblockr.destroy()
+
 

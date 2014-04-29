@@ -1,5 +1,7 @@
 # Docblockr Package
 
+[View the changelog](https://github.com/nikhilkalige/docblockr/blob/master/CHANGELOG.md)
+
 DocBlockr is a package for [Atom][atom] which is designed to make writing documentation faster and easier.
 
 The package currently supprts the following languages -

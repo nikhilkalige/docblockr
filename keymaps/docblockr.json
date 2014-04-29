@@ -1,7 +1,7 @@
 {
     ".editor:not(.mini)": {
-        "tab": "docblockr:parse",
-        "enter": "docblockr:parse",
+        "tab": "docblockr:parse_tab",
+        "enter": "docblockr:parse_enter",
         "shift-enter": "docblockr:parse_inline"
     }
 }

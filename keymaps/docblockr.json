@@ -3,6 +3,7 @@
         "tab": "docblockr:parse-tab",
         "enter": "docblockr:parse-enter",
         "shift-enter": "docblockr:parse-inline",
-        "ctrl-j": "docblockr:join-command"
+        "ctrl-j": "docblockr:join",
+        "alt-k": "docblockr:reparse"
     }
 }

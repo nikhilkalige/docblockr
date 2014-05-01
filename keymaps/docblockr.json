@@ -4,6 +4,7 @@
         "enter": "docblockr:parse-enter",
         "shift-enter": "docblockr:parse-inline",
         "ctrl-j": "docblockr:join",
-        "alt-k": "docblockr:reparse"
+        "alt-k": "docblockr:reparse",
+        "alt-q": "docblockr:wrap_lines"
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "docblockr",
-  "main": "./lib/docblockr",
+  "main": "./lib/docblockr.js",
   "version": "0.3.0",
   "description": "A helper package for writing documentation",
   "repository": "https://github.com/nikhilkalige/docblockr",

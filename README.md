@@ -34,22 +34,28 @@ The main development branch is `develop` and the stable 'production' branch is `
 ### Docblock completion
 
 Pressing **enter** or **tab** after `/**` (or `###*` for Coffee-Script) will yield a new line and will close the comment.
+
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/basic.gif)
 
 Single-asterisk comment blocks behave similarly:
+
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/basic-block.gif)
 
 ### Function documentation
 
 However, if the line directly afterwards contains a function definition, then its name and parameters are parsed and some documentation is automatically added.
+
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/function-template.gif)
 
 You can then press `tab` to move between the different fields.
 
 If you have many arguments, or long variable names, it might be useful to spread your arguments across multiple lines. DocBlockr will handle this situation too:
+
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/long-args.gif)
 
 In languages which support type hinting or default values, then those types are prefilled as the datatypes.
+
+
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/type-hinting.gif)
 
 DocBlockr will try to make an intelligent guess about the return value of the function.
@@ -68,6 +74,7 @@ DocBlockr will try to make an intelligent guess about the return value of the fu
 If the line following your docblockr contains a variable declaration, DocBlockr will try to determine the data type of the variable and insert that into the comment.
 
 If you press `shift+enter` after the opening `/**` then the docblockr will be inserted inline.
+
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/vars.gif)
 
 DocBlockr will also try to determine the type of the variable from its name. Variables starting with `is` or `has` are assumed to be booleans, and `callback`, `cb`, `done`, `fn`, and `next` are assumed to be functions. If you use your own variable naming system (eg: hungarian notation: booleans all start with `b`, arrays start with `arr`), you can define these rules yourself. 

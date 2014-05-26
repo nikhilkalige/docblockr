@@ -1,4 +1,13 @@
-# 0.4.0 (1 May 2014)
+# 0.5.0 (26 May 2014)
+
+* Named regex added to fix parser errors
+* Multiline comment decorate feature added
+
+# 0.4.2 (9 May 2014)
+
+* Scope based checks added
+
+# 0.4.1 (1 May 2014)
 
 * Readme fix
 * Changelog Update

@@ -7,7 +7,7 @@ DocBlockr is a package for [Atom][atom] which is designed to make writing docume
 The package currently supprts the following languages -
 
 * ActionScript
-* C, C++, Cuda-C++ 
+* C, C++, Cuda-C++
 * CoffeeScript
 * Groovy
 * Haxe
@@ -77,7 +77,7 @@ If you press `shift+enter` after the opening `/**` then the docblockr will be in
 
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/vars.gif)
 
-DocBlockr will also try to determine the type of the variable from its name. Variables starting with `is` or `has` are assumed to be booleans, and `callback`, `cb`, `done`, `fn`, and `next` are assumed to be functions. If you use your own variable naming system (eg: hungarian notation: booleans all start with `b`, arrays start with `arr`), you can define these rules yourself. 
+DocBlockr will also try to determine the type of the variable from its name. Variables starting with `is` or `has` are assumed to be booleans, and `callback`, `cb`, `done`, `fn`, and `next` are assumed to be functions. If you use your own variable naming system (eg: hungarian notation: booleans all start with `b`, arrays start with `arr`), you can define these rules yourself.
 
 ### Comment extension
 
@@ -96,6 +96,12 @@ In either case, you can press `shift+enter` to stop the automatic extension.
 Oftentimes, when documenting a parameter, or adding a description to a tag, your description will cover multiple lines. If the line you are on is directly following a tag line, pressing `tab` will move the indentation to the correct position.
 
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/deep-indent.gif)
+
+### Multiline comment decoration
+
+If you write a multline comment and use `Docblockr:Decorate Multiline`, Docblockr will create block comment decoration.
+
+![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/multiline-decorate.gif)
 
 ### Comment decoration
 
@@ -128,7 +134,7 @@ Inside a comment block, hit `Docblockr:Wrap Lines` to wrap the lines to make the
      *   massa, sit amet adipiscing dolor.
      * @return {[Type]}
      */
-     
+
 ## Configuration ##
 
 You can access the configuration settings by entering `Docblockr` in atom settings window

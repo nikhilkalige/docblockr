@@ -1,3 +1,7 @@
+# 0.5.1 (28 May 2014)
+
+* Scope selector bug fix
+
 # 0.5.0 (26 May 2014)
 
 * Named regex added to fix parser errors

@@ -1,3 +1,7 @@
+# 0.5.4 (25 Aug 2014)
+
+* Typo fix
+
 # 0.5.3 (25 Aug 2014)
 
 * Wrap lines error fix

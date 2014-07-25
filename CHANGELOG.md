@@ -1,3 +1,11 @@
+# 0.5.3 (25 Aug 2014)
+
+* Wrap lines error fix
+
+# 0.5.2 (29 May 2014)
+
+* License Update
+
 # 0.5.1 (28 May 2014)
 
 * Scope selector bug fix

@@ -1,3 +1,7 @@
+# 0.5.5 (25 Aug 2014)
+
+* Extend line comment setting unused fix
+
 # 0.5.4 (25 Aug 2014)
 
 * Typo fix

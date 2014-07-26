@@ -1,3 +1,8 @@
+# 0.5.6 (26 Aug 2014)
+
+* Php language detection fixed
+* Php function regex error fixed
+
 # 0.5.5 (25 Aug 2014)
 
 * Extend line comment setting unused fix

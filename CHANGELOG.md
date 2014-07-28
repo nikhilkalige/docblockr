@@ -1,3 +1,7 @@
+# 0.5.7 (28 Aug 2014)
+
+* parse_var function arguments fix
+
 # 0.5.6 (26 Aug 2014)
 
 * Php language detection fixed

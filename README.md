@@ -171,7 +171,7 @@ You can access the configuration settings by entering `Docblockr` in atom settin
 
 - `extra_tags` *(Array.String)* An array of strings, each representing extra boilerplate comments to add to *functions*. These can also include arbitrary text (not just tags).
 
-        // extra_tags = 'This is a cool function', '@author nickf', '@version ${1:[version]}'
+        // extra_tags = This is a cool function, @author nickf, @version ${1:[version]}
         /**<<enter>>
         function foo (x) {}
 
@@ -187,7 +187,7 @@ You can access the configuration settings by entering `Docblockr` in atom settin
 
     Basic variable substitution is supported here for the variables `date` and `datetime`, wrapped in double curly brackets.
 
-        // extra_tags = '@date {{date}}', '@anotherdate {{datetime}}'
+        // extra_tags = @date {{date}}, @anotherdate {{datetime}}
         /**<<enter>>
         function foo() {}
 

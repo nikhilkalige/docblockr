@@ -1,3 +1,9 @@
+# 0.5.8 (23 Aug 2014)
+
+* extra_tags error fixed
+* javascript variable parser fixed
+* Some additional minor fixes
+
 # 0.5.7 (28 July 2014)
 
 * parse_var function arguments fix

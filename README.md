@@ -138,7 +138,7 @@ Inside a comment block, hit `Docblockr:Wrap Lines` to wrap the lines to make the
 ### Reformatting generic paragraphs
 
 This is a generic reformatter that wraps the lines to fit within the rulers.
-After selecting the text, hit 'Dockblockr: Wrap Lines Generic' to reformat your selected text
+After selecting the text, hit `Dockblockr: Wrap Lines Generic` to reformat your selected text
 
 ## Configuration ##
 

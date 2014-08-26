@@ -121,7 +121,7 @@ Sometimes, you'll perform some action which clears the fields (sections of text 
 
 With DocBlockr, you can reparse a comment and reactivate the fields by using command `Docblockr:Reparse`
 
-### Reformatting paragraphs
+### Reformatting comment paragraphs
 
 Inside a comment block, hit `Docblockr:Wrap Lines` to wrap the lines to make them fit within your rulers. If you would like subsequent lines in a paragraph to be indented, you can adjust the `indentation_spaces_same_para` setting. For example, a value of `3` might look like this:
 
@@ -134,6 +134,11 @@ Inside a comment block, hit `Docblockr:Wrap Lines` to wrap the lines to make the
      *   massa, sit amet adipiscing dolor.
      * @return {[Type]}
      */
+
+### Reformatting generic paragraphs
+
+This is a generic reformatter that wraps the lines to fit within the rulers.
+After selecting the text, hit 'Dockblockr: Wrap Lines Generic' to reformat your selected text
 
 ## Configuration ##
 

@@ -1,8 +1,0 @@
-{
-    "context-menu": {
-        ".editor": { 
-            "Parse": "docblockr:parse",
-            "Parse Inline": "docblockr:parse_inline"
-        }
-    }
-}

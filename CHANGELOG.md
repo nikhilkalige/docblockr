@@ -1,3 +1,14 @@
+# 0.7.3
+* identifies variable args in the cpp parser
+* fix parameters handling in one-lined function
+
+# 0.7.2 (23 May 2015)
+* fix TypescriptParser
+* cpp language detection fixed
+* some basic ES6/2015 support
+* respect extend double slash setting
+* bug correction on shallow indent mode
+
 # 0.5.8 (23 Aug 2014)
 
 * extra_tags error fixed

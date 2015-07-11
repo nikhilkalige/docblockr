@@ -1,4 +1,4 @@
-# 0.7.3
+# 0.7.3 (10 July 2015)
 * identifies variable args in the cpp parser
 * fix parameters handling in one-lined function
 

@@ -4,75 +4,75 @@ parse_function:
     -
         - should parse anonymous function
         - function() {}
-        - ['', null, null]
+        - ['', null, null, {}]
     -
         - should parse named function
         - function foo() {}
-        - ['foo', null, null]
+        - ['foo', null, null, {}]
     -
         - should parse function with params
         - function foo(foo, bar) {}
-        - ['foo', 'foo, bar', null]
+        - ['foo', 'foo, bar', null, {}]
     -
         - should parse function params with default values
         - function foo(foo = "test", bar = 'test') {}
-        - ['foo', "foo = \"test\", bar = 'test'", null]
+        - ['foo', "foo = \"test\", bar = 'test'", null, {}]
     -
         - should parse anonymous function in object literal
         - 'foo : function (baz, quaz) {}'
-        - ['foo', 'baz, quaz', null]
+        - ['foo', 'baz, quaz', null, {}]
     -
         - should parse function containing weird white spaces
         -   var  foo=function test  (){ return 123; }
-        - ['foo', null, null]
+        - ['foo', null, null, {}]
     -
         - should parse named function in object literal
         - 'foo : function bar (baz, quaz) {}'
-        - ['foo', 'baz, quaz', null]
+        - ['foo', 'baz, quaz', null, {}]
     -
         - should parse named async function in object literal
         - 'foo : async function bar (baz, quaz) {}'
-        - ['foo', 'baz, quaz', 'Promise']
+        - ['foo', 'baz, quaz', 'Promise', {}]
     -
         - should parse variable declaration with anonymous function
         - var foo = function (baz, quaz) {}
-        - ['foo', 'baz, quaz', null]
+        - ['foo', 'baz, quaz', null, {}]
     -
         - should parse variable declaration with named anonymous function
         - var bar = function foo(baz, quaz) {}
-        - ['bar', 'baz, quaz', null]
+        - ['bar', 'baz, quaz', null, {}]
     -
         - should parse variable (let) declaration with named anonymous function
         - let bar = function foo(baz, quaz) {}
-        - ['bar', 'baz, quaz', null]
+        - ['bar', 'baz, quaz', null, {}]
     -
         - should parse const declaration with named anonymous function
         - const bar = function foo(baz, quaz) {}
-        - ['bar', 'baz, quaz', null]
+        - ['bar', 'baz, quaz', null, {}]
     -
         - should parse object property and assigned anonymous function
         - bar.foo = function() {}
-        - ['foo', null, null]
+        - ['foo', null, null, {}]
     -
         - should parse object property and assigned named anonymous function
         - test.prop = function foo(bar, baz) {}
-        - ['prop', 'bar, baz', null]
+        - ['prop', 'bar, baz', null, {}]
     -
         - should parse deep object property and assigned anonymous function
         - obj.t.prop = function (bar) {}
-        - ['prop', 'bar', null]
+        - ['prop', 'bar', null, {}]
     -
         - should parse variable declaration with anonymous arrow function
         - var foo = () => {}
-        - ['foo', null, null]
+        - ['foo', null, null, {}]
     -
         - should parse variable declaration with anonymous arrow function with single param
         - var foo = bar => {}
-        - ['foo', 'bar', null]
+        - ['foo', 'bar', null, {}]
     -
         - should parse variable declaration with anonymous arrow function with params
         - var foo = (bar, baz) => {}
-        - ['foo', 'bar, baz', null]
+        - ['foo', 'bar, baz', null, {}]
     -
         - should return null, because this is a variable declaration
         - var bar = foo()
@@ -96,47 +96,47 @@ parse_function:
     -
         - should parse anonymous async function
         - async function() {}
-        - ['', null, 'Promise']
+        - ['', null, 'Promise', {}]
     -
         - should parse named async function
         - async function foo() {}
-        - ['foo', null, 'Promise']
+        - ['foo', null, 'Promise', {}]
     -
         - should parse named static function
         - static function foo() {}
-        - ['foo', null, null]
+        - ['foo', null, null, {}]
     -
         - should parse named exported function
         - export function foo() {}
-        - ['foo', null, null]
+        - ['foo', null, null, {}]
     -
         - should parse named exported async function
         - export async function foo() {}
-        - ['foo', null, 'Promise']
+        - ['foo', null, 'Promise', {}]
     -
         - should parse named exported static function
         - export static function foo() {}
-        - ['foo', null, null]
+        - ['foo', null, null, {}]
     -
         - should parse named exported async static function
         - export static async function foo() {}
-        - ['foo', null, 'Promise']
+        - ['foo', null, 'Promise', {}]
     -
         - should parse named exported default function
         - export default function foo() {}
-        - ['foo', null, null]
+        - ['foo', null, null, {}]
     -
         - should parse named exported default async function
         - export default async function foo() {}
-        - ['foo', null, 'Promise']
+        - ['foo', null, 'Promise', {}]
     -
         - should parse named exported default async static function
         - export default static async function foo() {}
-        - ['foo', null, 'Promise']
+        - ['foo', null, 'Promise', {}]
     -
         - should parse named exported default static function
         - export default static function foo() {}
-        - ['foo', null, null]
+        - ['foo', null, null, {}]
     -
         - should return null, because this is an invalid function declaration
         - default export function foo() {}
@@ -144,51 +144,66 @@ parse_function:
     -
         - should parse single param async anonymous arrow function
         - async param => {}
-        - ['', 'param', 'Promise']
+        - ['', 'param', 'Promise', {}]
     -
         - should parse multi param async anonymous arrow function
         - async (param, param1) => {}
-        - ['', 'param, param1', 'Promise']
+        - ['', 'param, param1', 'Promise', {}]
     -
         - should parse variable declaration with async anonymous arrow function
         - var foo = async () => {}
-        - ['foo', null, 'Promise']
+        - ['foo', null, 'Promise', {}]
     -
         - should parse generator function
         - function* foo (a, b, c) {}
-        - ['foo', 'a, b, c', 'Generator']
+        - ['foo', 'a, b, c', 'Generator', {}]
     -
         - should parse generator function with alternative syntax
         - function *foo () {}
-        - ['foo', null, 'Generator']
+        - ['foo', null, 'Generator', {}]
     -
         - should parse variable declaration with anonymous generator function
         - var foo = function*() {}
-        - ['foo', null, 'Generator']
+        - ['foo', null, 'Generator', {}]
     -
         - should parse exported staic generator function
         - static function* bar () {}
-        - ['bar', null, 'Generator']
+        - ['bar', null, 'Generator', {}]
     -
         - should parse getter
         - get bar() {}
-        - ['bar', null, null]
+        - ['bar', null, null, {}]
     -
         - should parse setter
         - set bar() {}
-        - ['bar', null, null]
+        - ['bar', null, null, {}]
     -
         - should parse shorthand method definitions
         - bar() {}
-        - ['bar', null, null]
+        - ['bar', null, null, {}]
     -
         - should parse static shorthand method definitions
         - static bar() {}
-        - ['bar', null, null]
+        - ['bar', null, null, {}]
     -
         - should parse async shorthand method definitions
         - async bar() {}
-        - ['bar', null, 'Promise']
+        - ['bar', null, 'Promise', {}]
+
+    -
+        - should treat functions with uppercase name as constructor
+        - function Bar() {}
+        - ['Bar', null, null, {is_constructor: true}]
+    -
+        - should not treat arroow functions with uppercase name as constructor
+        - Bar = () => {}
+        - ['Bar', null, null, {}]
+    -
+        - should not treat shorthand functions with uppercase name as constructor
+        - Bar() {}
+        - ['Bar', null, null, {}]
+
+
 
 get_arg_type:
     -

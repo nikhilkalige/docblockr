@@ -214,6 +214,8 @@ You can access the configuration settings by entering `Docblockr` in atom settin
 
 - `autoadd_method_tag` *(Boolean)* Add a `@method` tag to docblocks of functions. Default: `false`
 
+- `autoadd_property_tag` *(Boolean)* Add a `@property` tag to docblocks of object properties. Default: `false`
+
 - `simple_mode` *(Boolean)* If true, DocBlockr won't add a template when creating a doc block before a function or variable. Useful if you don't want to write Javadoc-style, but still want your editor to help when writing block comments. Default: `false`
 
 - `lower_case_primitives` *(Boolean)* If true, primitive data types are added in lower case, eg "number" instead of "Number". Default: `false`

@@ -1,3 +1,6 @@
+# 0.8.0 (26 June 2016)
+* Add support for parsing Swift programming language.
+
 # 0.7.3
 * identifies variable args in the cpp parser
 * fix parameters handling in one-lined function

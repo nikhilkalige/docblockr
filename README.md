@@ -1,4 +1,5 @@
 # Docblockr Package
+[![Build Status](https://img.shields.io/travis/nikhilkalige/docblockr/master.svg?style=flat-square)](https://travis-ci.org/nikhilkalige/docblockr)
 
 [View the changelog](https://github.com/nikhilkalige/docblockr/blob/master/CHANGELOG.md)
 

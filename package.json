@@ -8,5 +8,10 @@
   "engines": {
     "atom": ">0.50.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "atom-package-dependencies": "^1.0.3"
+  },
+  "package-dependencies": {
+    "snippets": "//version specification coming soon"
+  }
 }

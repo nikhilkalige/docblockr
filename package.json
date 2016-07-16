@@ -8,5 +8,10 @@
   "engines": {
     "atom": ">0.50.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "atom-mocha-test-runner": "0.2.2",
+    "chai": "^3.5.0"
+  },
+  "atomTestRunner": "./spec/runner"
 }

@@ -15,8 +15,9 @@ The package currently supprts the following languages -
 * Java
 * JavaScript
 * ObjC, ObjC++
-* Php
+* PHP
 * Rust
+* SASS
 * TypeScript
 
 ## Installing

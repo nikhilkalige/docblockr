@@ -2,7 +2,7 @@ parse_function:
     -
         - should parse anonymous function
         - function() {}
-        - ['function', '', null]
+        - ['functionxx', '', null]
     -
         - should parse named function
         - function foo() {}

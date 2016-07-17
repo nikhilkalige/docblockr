@@ -101,7 +101,7 @@ Oftentimes, when documenting a parameter, or adding a description to a tag, your
 
 ### Multiline comment decoration
 
-If you write a multline comment and use `Docblockr:Decorate Multiline`, Docblockr will create block comment decoration.
+If you write a multiline comment and use `Docblockr:Decorate Multiline`, Docblockr will create block comment decoration.
 
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/multiline-decorate.gif)
 

@@ -41,7 +41,10 @@ for (let name of files) {
         beforeEach(() => {
             return atom.packages.activatePackage('docblockr')
                 .then(() => {
+                    console.log(atom.packages.isPackageActive('docblockr'));
                     parser = new parsers[parser_name](atom.config.get('docblockr'));
+                }, (reason) => {
+                    console.log("failed", reason);
                 });
         });
 

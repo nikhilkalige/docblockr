@@ -5,7 +5,7 @@
 
 DocBlockr is a package for [Atom][atom] which is designed to make writing documentation faster and easier.
 
-The package currently supprts the following languages -
+The package currently supports the following languages -
 
 * ActionScript
 * C, C++, Cuda-C++

@@ -1,3 +1,5 @@
+name: JsParser
+
 parse_function:
     -
         - should parse anonymous function

@@ -4,6 +4,7 @@ Tests are written using [Mocha](https://mochajs.org/ "mocha") and [Chai](http://
 
 The tests for the languages files in `lib/languages` folder is specified in a separate yaml file for each language in `spec/dataset` folder. The yaml file has the following format
 
+name: Name of the parser to use # Example: JsParser
     function_name_1:
     # The following data will be tested for the above function
     	-

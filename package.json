@@ -14,5 +14,12 @@
     "chai": "^3.5.0",
     "js-yaml": "^3.6.1"
   },
+  "consumedServices": {
+    "snippets": {
+      "versions": {
+        "^0.1.0": "consumeSnippetsService"
+      }
+    }
+  },
   "atomTestRunner": "./spec/runner"
 }

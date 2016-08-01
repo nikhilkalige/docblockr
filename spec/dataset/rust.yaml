@@ -1,0 +1,74 @@
+name: RustParser
+
+parse_function:
+    -
+        - should parse simple function
+        - fn main() {}
+        - ['main', null]
+    -
+        - should parse function with return type
+        - fn foo() -> i32 {
+        - ['foo', null]
+    -
+        - should parse function with params
+        - 'fn bar(x: i32, y: &str) {'
+        - ['bar', null]
+    -
+        - should parse function with params and return type
+        - 'fn baz(x: i32) -> i32 {'
+        - ['baz', null]
+    -
+        - should parse function with mutable reference as param
+        - 'fn add_one(x: &mut i32) -> i32 {'
+        - ['add_one', null]
+    -
+        - should parse function with complex return type
+        - 'fn do_something(y: &mut u64) -> (i32, &str) {'
+        - ['do_something', null]
+    -
+        - should parse function in uncommon syntax
+        - 'fn foo  ( x  : i32   )  -> i32'
+        - ['foo', null]
+    -
+        - should parse method with normal `self` reference and return type
+        - fn is_foo(&self) -> bool
+        - ['is_foo', null]
+    -
+        - should parse method with mutable `self` reference and extra param
+        - 'fn is_bar(&self, x: &mut Bar)'
+        - ['is_bar', null]
+
+
+parse_var:
+    -
+        - should parse variable declaration
+        - let foo;
+        - ['foo', null, null]
+    -
+        - should parse mutable variable declaration
+        - let mut foo = 0;
+        - ['foo', null, null]
+    -
+        - should parse variable declaration with value
+        - let bar = 0;
+        - ['bar', null, null]
+    -
+        - should parse variable declaration with value and type suffix
+        - let baz = 15.18f64;
+        - ['baz', null, null]
+    -
+        - should parse variable declaration with type
+        - 'let foo: i32;'
+        - ['foo', null, null]
+    -
+        - should parse mutable variable declaration with type
+        - 'let mut foo: i32;'
+        - ['foo', null, null]
+    -
+        - should parse variable declaration with type and value
+        - 'let bar: i32 = 15;'
+        - ['bar', null, null]
+    -
+        - should parse variable declaration with value from function call
+        - let bar = get_some_value();
+        - ['bar', null, null]

@@ -27,7 +27,7 @@ let parsers = {
     TypescriptParser,
 };
 
-var filepath = path.resolve(path.join(__dirname, 'dataset'));
+var filepath = path.resolve(path.join(__dirname, 'dataset/languages'));
 var files = fs.readdirSync(filepath);
 
 for (let name of files) {

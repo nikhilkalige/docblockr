@@ -5,7 +5,7 @@
 
 DocBlockr is a package for [Atom][atom] which is designed to make writing documentation faster and easier.
 
-The package currently supprts the following languages -
+The package currently supports the following languages -
 
 * ActionScript
 * C, C++, Cuda-C++
@@ -15,8 +15,9 @@ The package currently supprts the following languages -
 * Java
 * JavaScript
 * ObjC, ObjC++
-* Php
+* PHP
 * Rust
+* SASS
 * TypeScript
 
 ## Installing
@@ -100,7 +101,7 @@ Oftentimes, when documenting a parameter, or adding a description to a tag, your
 
 ### Multiline comment decoration
 
-If you write a multline comment and use `Docblockr:Decorate Multiline`, Docblockr will create block comment decoration.
+If you write a multiline comment and use `Docblockr:Decorate Multiline`, Docblockr will create block comment decoration.
 
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/multiline-decorate.gif)
 

@@ -1,0 +1,124 @@
+name: JsParser
+
+parse_function:
+    -
+        - should parse anonymous function
+        - function() {}
+        - ['function', '', null]
+    -
+        - should parse named function
+        - function foo() {}
+        - ['foo', '', null]
+    -
+        - should parse function params
+        - function foo(foo, bar) {}
+        - ['foo', 'foo, bar', null]
+    -
+        - should parse function params width default
+        - function foo(foo = "test", bar = 'test') {}
+        - [foo, "foo = \"test\", bar = 'test'", null]
+
+
+get_arg_type:
+    -
+        - should return no type
+        - foo
+        - null
+    -
+        - should return "Object" for "{}"
+        - "foo = {}"
+        - Object
+    -
+        - should return "Foo" for "new Foo()"
+        - foo = new Foo()
+        - Foo
+    -
+        - should return "Array" for "[]"
+        - foo = []
+        - Array
+    -
+        - should return "Array" for "[1, 2, 3]"
+        - foo = [1, 2, 3]
+        - Array
+    -
+        - should return "String" for 'foo'
+        - foo = 'foo'
+        - String
+    -
+        - should return "String" for "new Foo()"
+        - foo = 'new Foo()'
+        - String
+    -
+        - should return "String" for "123"
+        - foo = '123'
+        - String
+    -
+        - should return "String" for "[]"
+        - foo = '[]'
+        - String
+    -
+        - should return "Number" for "123"
+        - foo = 123
+        - Number
+    -
+        - should return "Number" for "1.23"
+        - foo = 1.23
+        - Number
+    -
+        - should return no type
+        - foo
+        - null
+    -
+        - should return "Object" for "{}"
+        - "foo = {}"
+        - Object
+    -
+        - should return "Foo" for "new Foo()"
+        - foo = new Foo()
+        - Foo
+
+
+get_arg_name:
+    -
+        - should return argument "foo"
+        - foo
+        - foo
+    -
+        - should return optional argument "foo" with default value "{}"
+        - "foo = {}"
+        - "[foo={}]"
+    -
+        - should return optional argument "foo" with default value "[]"
+        - "foo = []"
+        - "[foo=[]]"
+    -
+        - should return optional argument "foo" with default value "[1, 2, 3]"
+        - "foo = [1, 2, 3]"
+        - "[foo=[1, 2, 3]]"
+    -
+        - should return optional argument "foo" with default value "\'foo\'"
+        - "foo = 'foo'"
+        - "[foo='foo']"
+    -
+        - should return optional argument "foo" with default value "123"
+        - foo = 123
+        - "[foo=123]"
+
+
+parse_var:
+    -
+        - should return var "foo" with value "{}"
+        - var foo = {}
+        - ['foo', '{}']
+    -
+        - should return var "foo" with value "[]"
+        - var foo = []
+        - ['foo', '[]']
+    -
+        - should return var "foo" with value "foo"
+        - var foo = 'foo'
+        - ['foo', "'foo'"]
+    -
+        - should return var "foo" with value "123"
+        - var foo = 123
+        - ['foo', '123']

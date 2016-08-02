@@ -1,3 +1,8 @@
+# 0.7.4 (1 Aug 2016)
+* Better Rust support
+* Js optional arguments fix
+* Small amount of specs added
+
 # 0.7.3 (10 July 2015)
 * identifies variable args in the cpp parser
 * fix parameters handling in one-lined function

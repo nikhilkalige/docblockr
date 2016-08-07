@@ -4,19 +4,71 @@ parse_function:
     -
         - should parse anonymous function
         - function() {}
-        - ['function', '', null]
+        - ['', null, null]
     -
         - should parse named function
         - function foo() {}
-        - ['foo', '', null]
+        - ['foo', null, null]
     -
-        - should parse function params
+        - should parse function with params
         - function foo(foo, bar) {}
         - ['foo', 'foo, bar', null]
     -
-        - should parse function params width default
+        - should parse function params with default values
         - function foo(foo = "test", bar = 'test') {}
-        - [foo, "foo = \"test\", bar = 'test'", null]
+        - ['foo', "foo = \"test\", bar = 'test'", null]
+    -
+        - should parse anonymous function in object literal
+        - 'foo : function (baz, quaz) {}'
+        - ['foo', 'baz, quaz', null]
+    -
+        - should parse named anonymous function in object literal
+        - 'foo : function bar (baz, quaz) {}'
+        - ['foo', 'baz, quaz', null]
+    -
+        - should parse variable declaration with anonymous function
+        - var foo = function (baz, quaz) {}
+        - ['foo', 'baz, quaz', null]
+    -
+        - should parse variable declaration with named anonymous function
+        - var bar = function foo(baz, quaz) {}
+        - ['bar', 'baz, quaz', null]
+    -
+        - should parse variable (let) declaration with named anonymous function
+        - let bar = function foo(baz, quaz) {}
+        - ['bar', 'baz, quaz', null]
+    -
+        - should parse const declaration with named anonymous function
+        - const bar = function foo(baz, quaz) {}
+        - ['bar', 'baz, quaz', null]
+    -
+        - should parse variable declaration with anonymous arrow function
+        - var foo = () => {}
+        - ['foo', null, null]
+    -
+        - should parse variable declaration with anonymous arrow function with single param
+        - var foo = bar => {}
+        - ['foo', 'bar', null]
+    -
+        - should parse variable declaration with anonymous arrow function with params
+        - var foo = (bar, baz) => {}
+        - ['foo', 'bar, baz', null]
+    -
+        - should return null, because this is a variable declaration
+        - var bar = foo()
+        - null
+    -
+        - should return null, because this is a variable declaration
+        - var bar = foo("baz", quaz)
+        - null
+    -
+        - should return null, because this is a function call
+        - foo({}, bar)
+        - null
+    -
+        - should return null, because this is a variable declaration with function call with anonymous function as param
+        - var bar = foo(baz, function quaz(){})
+        - null
 
 
 get_arg_type:

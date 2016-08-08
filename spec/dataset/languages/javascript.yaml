@@ -42,6 +42,18 @@ parse_function:
         - const bar = function foo(baz, quaz) {}
         - ['bar', 'baz, quaz', null]
     -
+        - should parse object property and assigned anonymous function
+        - bar.foo = function() {}
+        - ['foo', 'baz', null]
+    -
+        - should parse object property and assigned named anonymous function
+        - test.prop = function foo(bar, baz) {}
+        - ['prop', 'bar, baz', null]
+    -
+        - should parse deep object property and assigned anonymous function
+        - obj.t.prop = function (bar) {}
+        - ['prop', 'bar', null]
+    -
         - should parse variable declaration with anonymous arrow function
         - var foo = () => {}
         - ['foo', null, null]

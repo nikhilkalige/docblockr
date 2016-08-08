@@ -23,8 +23,8 @@ parse_function:
         - ['foo', 'baz, quaz', null]
     -
         - should parse function containing weird white spaces
-        -   var  foo=function test  (  foo  ,bar){ return 123; }
-        - ['foo', 'foo, bar', null]
+        -   var  foo=function test  (){ return 123; }
+        - ['foo', null, null]
     -
         - should parse named anonymous function in object literal
         - 'foo : function bar (baz, quaz) {}'
@@ -48,7 +48,7 @@ parse_function:
     -
         - should parse object property and assigned anonymous function
         - bar.foo = function() {}
-        - ['foo', 'baz', null]
+        - ['foo', null, null]
     -
         - should parse object property and assigned named anonymous function
         - test.prop = function foo(bar, baz) {}

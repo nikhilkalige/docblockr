@@ -22,6 +22,10 @@ parse_function:
         - 'foo : function (baz, quaz) {}'
         - ['foo', 'baz, quaz', null]
     -
+        - should parse function containing weird white spaces
+        -   var  foo=function test  (  foo  ,bar){ return 123; }
+        - ['foo', 'foo, bar', null]
+    -
         - should parse named anonymous function in object literal
         - 'foo : function bar (baz, quaz) {}'
         - ['foo', 'baz, quaz', null]

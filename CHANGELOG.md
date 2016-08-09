@@ -1,3 +1,9 @@
+# 0.7.5 (9 Aug 2016)
+* fix problems with falsely detected JS functions
+* add support for ES 2015 arrow functions
+* improve specs for the JS parser
+* fix problems with Java annotation
+
 # 0.7.4 (1 Aug 2016)
 * Better Rust support
 * Js optional arguments fix

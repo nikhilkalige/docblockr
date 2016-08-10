@@ -85,6 +85,10 @@ parse_function:
         - should return null, because this is a variable declaration with function call with anonymous function as param
         - var bar = foo(baz, function quaz(){})
         - null
+    -
+        - should return null, because this is a function call with get key word as name
+        - foo.get(bar, 123);
+        - null
 
 
 get_arg_type:

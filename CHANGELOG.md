@@ -1,3 +1,9 @@
+# 0.8.1 (10 Aug 2016)
+* Don't add an asterisk when hitting enter after a block comments
+
+# 0.8.1 (9 Aug 2016)
+* No changes; just going to v0.8
+
 # 0.7.5 (9 Aug 2016)
 * fix problems with falsely detected JS functions
 * add support for ES 2015 arrow functions

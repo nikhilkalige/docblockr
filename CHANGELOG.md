@@ -1,3 +1,6 @@
+# 0.8.2 (10 Aug 2016)
+* Support uppercase boolean literals in PHP
+
 # 0.8.1 (10 Aug 2016)
 * Don't add an asterisk when hitting enter after a block comments
 

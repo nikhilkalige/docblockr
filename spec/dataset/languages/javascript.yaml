@@ -194,3 +194,9 @@ parse_var:
         - should return var "foo" with value "123"
         - var foo = 123
         - ['foo', '123']
+
+get_function_return_type:
+    -
+        - should detect type `boolean` because the name starts with `is`
+        - [isFoo, null]
+        - Boolean

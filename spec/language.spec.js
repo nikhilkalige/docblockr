@@ -49,7 +49,12 @@ for (let name of files) {
             describe(key, () => {
                 dataset[key].forEach((data) => {
                     it(data[0], () => {
-                        const out = parser[key](data[1]);
+                        let out;
+                        if (Array.isArray(data[1])) {
+                            out = parser[key].apply(parser, data[1]);
+                        } else {
+                            out = parser[key](data[1]);
+                        }
                         expect(out).to.deep.equal(data[2]);
                     });
                 });

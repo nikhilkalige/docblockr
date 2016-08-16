@@ -115,7 +115,7 @@ parse_function:
         - ['foo', null, null]
     -
         - should parse named exported async static function
-        - export async static function foo() {}
+        - export static async function foo() {}
         - ['foo', null, 'Promise']
     -
         - should parse named exported default function
@@ -127,7 +127,7 @@ parse_function:
         - ['foo', null, 'Promise']
     -
         - should parse named exported default async static function
-        - export default async static function foo() {}
+        - export default static async function foo() {}
         - ['foo', null, 'Promise']
     -
         - should parse named exported default static function
@@ -137,6 +137,18 @@ parse_function:
         - should return null, because this is an invalid function declaration
         - default export function foo() {}
         - null
+    -
+        - should parse single param async anonymous arrow function
+        - async param => {}
+        - ['', 'param', 'Promise']
+    -
+        - should parse multi param async anonymous arrow function
+        - async (param, param1) => {}
+        - ['', 'param, param1', 'Promise']
+    -
+        - should parse variable declaration with async anonymous arrow function
+        - var foo = async () => {}
+        - ['foo', null, 'Promise']
 
 get_arg_type:
     -

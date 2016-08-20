@@ -1,3 +1,8 @@
+# 0.8.3 (19 Aug 2016)
+* Add support for PHP7 return types
+* Add a way to test functions with multiple arguments
+* Preserve indentation while line wrapping
+
 # 0.8.2 (10 Aug 2016)
 * Support uppercase boolean literals in PHP
 

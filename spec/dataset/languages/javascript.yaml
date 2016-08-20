@@ -136,19 +136,6 @@ get_arg_type:
         - should return "Number" for "1.23"
         - foo = 1.23
         - Number
-    -
-        - should return no type
-        - foo
-        - null
-    -
-        - should return "Object" for "{}"
-        - "foo = {}"
-        - Object
-    -
-        - should return "Foo" for "new Foo()"
-        - foo = new Foo()
-        - Foo
-
 
 get_arg_name:
     -

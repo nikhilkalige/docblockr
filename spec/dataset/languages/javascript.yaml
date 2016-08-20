@@ -136,6 +136,18 @@ get_arg_type:
         - should return "Number" for "1.23"
         - foo = 1.23
         - Number
+    -
+        - should return "RegExp" for "/.*/"
+        - foo = /.*/
+        - RegExp
+    -
+        - should return "RegExp" for "RegExp('.*')"
+        - foo = RegExp('.*')
+        - RegExp
+    -
+        - should return no type for "n / x"
+        - foo = n / x;
+        - null
 
 get_arg_name:
     -

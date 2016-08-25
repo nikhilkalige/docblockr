@@ -1,3 +1,8 @@
+# 0.8.4 (25 Aug 2016)
+* Support exported JS functions
+* Support async JS functions and identify the return type as Promise
+* Support for static JS functions
+
 # 0.8.3 (19 Aug 2016)
 * Add support for PHP7 return types
 * Add a way to test functions with multiple arguments

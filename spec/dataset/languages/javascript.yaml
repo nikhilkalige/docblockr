@@ -89,7 +89,66 @@ parse_function:
         - should return null, because this is a function call with get key word as name
         - foo.get(bar, 123);
         - null
-
+    -
+        - should parse anonymous async function
+        - async function() {}
+        - ['', null, 'Promise']
+    -
+        - should parse named async function
+        - async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named static function
+        - static function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named exported function
+        - export function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named exported async function
+        - export async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named exported static function
+        - export static function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named exported async static function
+        - export static async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named exported default function
+        - export default function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named exported default async function
+        - export default async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named exported default async static function
+        - export default static async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named exported default static function
+        - export default static function foo() {}
+        - ['foo', null, null]
+    -
+        - should return null, because this is an invalid function declaration
+        - default export function foo() {}
+        - null
+    -
+        - should parse single param async anonymous arrow function
+        - async param => {}
+        - ['', 'param', 'Promise']
+    -
+        - should parse multi param async anonymous arrow function
+        - async (param, param1) => {}
+        - ['', 'param, param1', 'Promise']
+    -
+        - should parse variable declaration with async anonymous arrow function
+        - var foo = async () => {}
+        - ['foo', null, 'Promise']
 
 get_arg_type:
     -

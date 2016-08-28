@@ -1,0 +1,261 @@
+name: JsParser
+
+parse_function:
+    -
+        - should parse anonymous function
+        - function() {}
+        - ['', null, null]
+    -
+        - should parse named function
+        - function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse function with params
+        - function foo(foo, bar) {}
+        - ['foo', 'foo, bar', null]
+    -
+        - should parse function params with default values
+        - function foo(foo = "test", bar = 'test') {}
+        - ['foo', "foo = \"test\", bar = 'test'", null]
+    -
+        - should parse anonymous function in object literal
+        - 'foo : function (baz, quaz) {}'
+        - ['foo', 'baz, quaz', null]
+    -
+        - should parse function containing weird white spaces
+        -   var  foo=function test  (){ return 123; }
+        - ['foo', null, null]
+    -
+        - should parse named anonymous function in object literal
+        - 'foo : function bar (baz, quaz) {}'
+        - ['foo', 'baz, quaz', null]
+    -
+        - should parse variable declaration with anonymous function
+        - var foo = function (baz, quaz) {}
+        - ['foo', 'baz, quaz', null]
+    -
+        - should parse variable declaration with named anonymous function
+        - var bar = function foo(baz, quaz) {}
+        - ['bar', 'baz, quaz', null]
+    -
+        - should parse variable (let) declaration with named anonymous function
+        - let bar = function foo(baz, quaz) {}
+        - ['bar', 'baz, quaz', null]
+    -
+        - should parse const declaration with named anonymous function
+        - const bar = function foo(baz, quaz) {}
+        - ['bar', 'baz, quaz', null]
+    -
+        - should parse object property and assigned anonymous function
+        - bar.foo = function() {}
+        - ['foo', null, null]
+    -
+        - should parse object property and assigned named anonymous function
+        - test.prop = function foo(bar, baz) {}
+        - ['prop', 'bar, baz', null]
+    -
+        - should parse deep object property and assigned anonymous function
+        - obj.t.prop = function (bar) {}
+        - ['prop', 'bar', null]
+    -
+        - should parse variable declaration with anonymous arrow function
+        - var foo = () => {}
+        - ['foo', null, null]
+    -
+        - should parse variable declaration with anonymous arrow function with single param
+        - var foo = bar => {}
+        - ['foo', 'bar', null]
+    -
+        - should parse variable declaration with anonymous arrow function with params
+        - var foo = (bar, baz) => {}
+        - ['foo', 'bar, baz', null]
+    -
+        - should return null, because this is a variable declaration
+        - var bar = foo()
+        - null
+    -
+        - should return null, because this is a variable declaration
+        - var bar = foo("baz", quaz)
+        - null
+    -
+        - should return null, because this is a function call
+        - foo({}, bar)
+        - null
+    -
+        - should return null, because this is a variable declaration with function call with anonymous function as param
+        - var bar = foo(baz, function quaz(){})
+        - null
+    -
+        - should return null, because this is a function call with get key word as name
+        - foo.get(bar, 123);
+        - null
+    -
+        - should parse anonymous async function
+        - async function() {}
+        - ['', null, 'Promise']
+    -
+        - should parse named async function
+        - async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named static function
+        - static function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named exported function
+        - export function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named exported async function
+        - export async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named exported static function
+        - export static function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named exported async static function
+        - export static async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named exported default function
+        - export default function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named exported default async function
+        - export default async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named exported default async static function
+        - export default static async function foo() {}
+        - ['foo', null, 'Promise']
+    -
+        - should parse named exported default static function
+        - export default static function foo() {}
+        - ['foo', null, null]
+    -
+        - should return null, because this is an invalid function declaration
+        - default export function foo() {}
+        - null
+    -
+        - should parse single param async anonymous arrow function
+        - async param => {}
+        - ['', 'param', 'Promise']
+    -
+        - should parse multi param async anonymous arrow function
+        - async (param, param1) => {}
+        - ['', 'param, param1', 'Promise']
+    -
+        - should parse variable declaration with async anonymous arrow function
+        - var foo = async () => {}
+        - ['foo', null, 'Promise']
+
+get_arg_type:
+    -
+        - should return no type
+        - foo
+        - null
+    -
+        - should return "Object" for "{}"
+        - "foo = {}"
+        - Object
+    -
+        - should return "Foo" for "new Foo()"
+        - foo = new Foo()
+        - Foo
+    -
+        - should return "Array" for "[]"
+        - foo = []
+        - Array
+    -
+        - should return "Array" for "[1, 2, 3]"
+        - foo = [1, 2, 3]
+        - Array
+    -
+        - should return "String" for 'foo'
+        - foo = 'foo'
+        - String
+    -
+        - should return "String" for "new Foo()"
+        - foo = 'new Foo()'
+        - String
+    -
+        - should return "String" for "123"
+        - foo = '123'
+        - String
+    -
+        - should return "String" for "[]"
+        - foo = '[]'
+        - String
+    -
+        - should return "Number" for "123"
+        - foo = 123
+        - Number
+    -
+        - should return "Number" for "1.23"
+        - foo = 1.23
+        - Number
+    -
+        - should return no type
+        - foo
+        - null
+    -
+        - should return "Object" for "{}"
+        - "foo = {}"
+        - Object
+    -
+        - should return "Foo" for "new Foo()"
+        - foo = new Foo()
+        - Foo
+
+
+get_arg_name:
+    -
+        - should return argument "foo"
+        - foo
+        - foo
+    -
+        - should return optional argument "foo" with default value "{}"
+        - "foo = {}"
+        - "[foo={}]"
+    -
+        - should return optional argument "foo" with default value "[]"
+        - "foo = []"
+        - "[foo=[]]"
+    -
+        - should return optional argument "foo" with default value "[1, 2, 3]"
+        - "foo = [1, 2, 3]"
+        - "[foo=[1, 2, 3]]"
+    -
+        - should return optional argument "foo" with default value "\'foo\'"
+        - "foo = 'foo'"
+        - "[foo='foo']"
+    -
+        - should return optional argument "foo" with default value "123"
+        - foo = 123
+        - "[foo=123]"
+
+
+parse_var:
+    -
+        - should return var "foo" with value "{}"
+        - var foo = {}
+        - ['foo', '{}']
+    -
+        - should return var "foo" with value "[]"
+        - var foo = []
+        - ['foo', '[]']
+    -
+        - should return var "foo" with value "foo"
+        - var foo = 'foo'
+        - ['foo', "'foo'"]
+    -
+        - should return var "foo" with value "123"
+        - var foo = 123
+        - ['foo', '123']
+
+get_function_return_type:
+    -
+        - should detect type `boolean` because the name starts with `is`
+        - [isFoo, null]
+        - Boolean

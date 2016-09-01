@@ -1,3 +1,6 @@
+# 0.8.5 (1 Sep 2016)
+* Fix problems when extending comments which contain a slash
+
 # 0.8.4 (25 Aug 2016)
 * Support exported JS functions
 * Support async JS functions and identify the return type as Promise

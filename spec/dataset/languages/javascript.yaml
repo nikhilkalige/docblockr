@@ -149,6 +149,22 @@ parse_function:
         - should parse variable declaration with async anonymous arrow function
         - var foo = async () => {}
         - ['foo', null, 'Promise']
+    -
+        - should parse generator function
+        - function* foo (a, b, c) {}
+        - ['foo', 'a, b, c', 'Generator']
+    -
+        - should parse generator function with alternative syntax
+        - function *foo () {}
+        - ['foo', null, 'Generator']
+    -
+        - should parse variable declaration with anonymous generator function
+        - var foo = function*() {}
+        - ['foo', null, 'Generator']
+    -
+        - should parse exported staic generator function
+        - static function* bar () {}
+        - ['bar', null, 'Generator']
 
 get_arg_type:
     -

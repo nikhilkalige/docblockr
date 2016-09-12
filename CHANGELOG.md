@@ -1,3 +1,36 @@
+# 0.8.5 (1 Sep 2016)
+* Fix problems when extending comments which contain a slash
+
+# 0.8.4 (25 Aug 2016)
+* Support exported JS functions
+* Support async JS functions and identify the return type as Promise
+* Support for static JS functions
+
+# 0.8.3 (19 Aug 2016)
+* Add support for PHP7 return types
+* Add a way to test functions with multiple arguments
+* Preserve indentation while line wrapping
+
+# 0.8.2 (10 Aug 2016)
+* Support uppercase boolean literals in PHP
+
+# 0.8.1 (10 Aug 2016)
+* Don't add an asterisk when hitting enter after a block comments
+
+# 0.8.1 (9 Aug 2016)
+* No changes; just going to v0.8
+
+# 0.7.5 (9 Aug 2016)
+* fix problems with falsely detected JS functions
+* add support for ES 2015 arrow functions
+* improve specs for the JS parser
+* fix problems with Java annotation
+
+# 0.7.4 (1 Aug 2016)
+* Better Rust support
+* Js optional arguments fix
+* Small amount of specs added
+
 # 0.7.3 (10 July 2015)
 * identifies variable args in the cpp parser
 * fix parameters handling in one-lined function

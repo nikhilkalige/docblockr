@@ -1,6 +1,8 @@
 {
+    "atom-workspace atom-text-editor:not([mini])": {
+        "tab": "docblockr:parse-tab"
+    },
     "atom-text-editor:not([mini])": {
-        "tab": "docblockr:parse-tab",
         "enter": "docblockr:parse-enter",
         "shift-enter": "docblockr:parse-inline"
     }

@@ -1,3 +1,8 @@
+# 0.8.6 (6 Okt 2016)
+* Fix problem with immediately returned JS closures
+* Improve support for ES2015 Generator functions
+* Fix problem with unnamed function parameters in C++
+
 # 0.8.5 (1 Sep 2016)
 * Fix problems when extending comments which contain a slash
 

@@ -1,7 +1,7 @@
-# 0.8.7 (6 Okt 2016)
+# 0.8.7 (6 Oct 2016)
 * Fix error when using `Wrap Lines`
 
-# 0.8.6 (6 Okt 2016)
+# 0.8.6 (6 Oct 2016)
 * Fix problem with immediately returned JS closures
 * Improve support for ES2015 Generator functions
 * Fix problem with unnamed function parameters in C++

@@ -1,3 +1,7 @@
+# Master
+* Improve treatment of c-style block comments
+* Add option `c_style_block_comments` to turn on/off c-style block comments.
+
 # 0.8.7 (6 Oct 2016)
 * Fix error when using `Wrap Lines`
 

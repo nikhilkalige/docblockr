@@ -1,3 +1,7 @@
+# 0.8.8 (4 Dec 2016)
+* Fixed problem with `throws` declaration in Java code (#156)
+* Updated extend functionality to grab everything associated with the comment (#225)
+
 # 0.8.7 (6 Oct 2016)
 * Fixed error when using `Wrap Lines`
 

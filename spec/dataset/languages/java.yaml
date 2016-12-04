@@ -1,0 +1,37 @@
+name: JavaParser
+
+parse_function:
+    -
+        - should parse a simple method
+        - void foo() {}
+        - ['foo', null, 'void', null]
+    -
+        - should parse a method with one argument
+        - void foo(int foo) {}
+        - ['foo', 'int foo', 'void', null]
+    -
+        - should parse a method with multiple arguments
+        - void foo(int bar, Boolean baz) {}
+        - ['foo', 'int bar, Boolean baz', 'void', null]
+    -
+        - should parse a method with return type
+        - String foo() {}
+        - ['foo', null, 'String', null]
+    -
+        - should parse a method with `throws` declaration
+        - void foo() throws IOException {}
+        - ['foo', null, 'void', ['IOException']]
+    -
+        - should parse a method with multiple `throws` declarations
+        - void foo() throws IOException, SQLException {}
+        - ['foo', null, 'void', ['IOException', 'SQLException']]
+
+get_function_return_type:
+    -
+        - should return `null` because `void` methods have no return
+        - ['fooBar', 'void']
+        - null
+    -
+        - should return the retval
+        - ['fooBar', 'String']
+        - 'String'

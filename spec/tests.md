@@ -40,3 +40,8 @@ To execute tests locally execute `atom -t docblockr/spec` from your Atom package
 cd ~/.atom/packages
 atom --test docblockr/spec
 ```
+
+or just:
+```bash
+npm test
+```

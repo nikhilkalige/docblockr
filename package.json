@@ -8,6 +8,9 @@
   "engines": {
     "atom": ">0.50.0"
   },
+  "scripts": {
+      "test": "cd ~/.atom/packages; atom --test docblockr/spec"
+  },
   "dependencies": {},
   "devDependencies": {
     "atom-mocha-test-runner": "0.2.2",

@@ -224,6 +224,8 @@ You can access the configuration settings by entering `Docblockr` in atom settin
 
 - `newline_after_block` *(Boolean)* If true, an extra line break is added after the end of a docblock to separate it from the code. Default `false`
 
+- `c_style_block_comments` *(Boolean)* If true, block comments (starting `/* `) will have asterisks placed on subsequent newlines. Default `false`
+
 ### Note
 All credits for this package goes to [SublimeJsdocs][jsdocs] who have created a wonderful plugin for Sublime Text. I have just ported the package to Atom and Javascript.
 

@@ -1,3 +1,7 @@
+# 0.9.0 (4 Dec 2016)
+* Improved treatment of c-style block comments
+* Added option `c_style_block_comments` to turn on/off c-style block comments
+
 # 0.8.8 (4 Dec 2016)
 * Fixed problem with `throws` declaration in Java code (#156)
 * Updated extend functionality to grab everything associated with the comment (#225)

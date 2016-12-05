@@ -1,3 +1,6 @@
+# 0.9.1 (5 Dec 2016)
+* Fixed exception when adding `/**` to the end of a file (#233)
+
 # 0.9.0 (4 Dec 2016)
 * Improved treatment of c-style block comments (#231)
 * Added option `c_style_block_comments` to turn on/off c-style block comments (#231)

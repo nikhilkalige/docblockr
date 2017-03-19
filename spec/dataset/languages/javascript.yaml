@@ -26,9 +26,13 @@ parse_function:
         -   var  foo=function test  (){ return 123; }
         - ['foo', null, null]
     -
-        - should parse named anonymous function in object literal
+        - should parse named function in object literal
         - 'foo : function bar (baz, quaz) {}'
         - ['foo', 'baz, quaz', null]
+    -
+        - should parse named async function in object literal
+        - 'foo : async function bar (baz, quaz) {}'
+        - ['foo', 'baz, quaz', 'Promise']
     -
         - should parse variable declaration with anonymous function
         - var foo = function (baz, quaz) {}
@@ -165,6 +169,26 @@ parse_function:
         - should parse exported staic generator function
         - static function* bar () {}
         - ['bar', null, 'Generator']
+    -
+        - should parse getter
+        - get bar() {}
+        - ['bar', null, null]
+    -
+        - should parse setter
+        - set bar() {}
+        - ['bar', null, null]
+    -
+        - should parse shorthand method definitions
+        - bar() {}
+        - ['bar', null, null]
+    -
+        - should parse static shorthand method definitions
+        - static bar() {}
+        - ['bar', null, null]
+    -
+        - should parse async shorthand method definitions
+        - async bar() {}
+        - ['bar', null, 'Promise']
 
 get_arg_type:
     -

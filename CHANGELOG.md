@@ -1,3 +1,6 @@
+# 0.9.3 (19 Mar 2017)
+* Fixed Java: Uncaught TypeError: Cannot read property 'search' of undefined
+
 # 0.9.2 (19 Mar 2017)
 * Added/Fixed support for shorthand method definitions
 * Fixed TextEditor.prototype.displayBuffer deprecation

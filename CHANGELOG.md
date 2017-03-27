@@ -1,3 +1,6 @@
+# 0.9.4 (27 Mar 2017)
+* Fixed typo regarding curly types
+
 # 0.9.3 (19 Mar 2017)
 * Fixed Java: Uncaught TypeError: Cannot read property 'search' of undefined
 

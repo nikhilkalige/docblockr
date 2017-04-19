@@ -49,6 +49,10 @@ parse_function:
         - should return null, because this is an invalid function declaration
         - export function foo() {}
         - null
+    -
+        - should not parse function since it is not the next statement
+        - "$foo;\nfunction bar() {}"
+        - null
 
 get_arg_type:
     -
@@ -152,3 +156,19 @@ parse_var:
         - should return var "foo" with value "123"
         - var foo = 123
         - ['foo', '123']
+
+parse_class:
+    -
+        - should parse class name
+        - class test { $foo; }
+        - ['test']
+
+parse:
+    -
+        - should parse class first
+        - "class test {\n$foo;\n}"
+        - ['${1:[test description]}']
+    -
+        - should parse var first
+        - "$foo;\nfunction bar() {}"
+        - ['${1:[$foo description]}', '@var ${1:[type]}']

@@ -25,6 +25,11 @@ parse_function:
         - should parse a method with multiple `throws` declarations
         - void foo() throws IOException, SQLException {}
         - ['foo', null, 'void', ['IOException', 'SQLException']]
+    -
+        - should parse a method with array return type
+        - char[] foo() {}
+        - ['foo', null, 'char[]', null]
+
 
 get_function_return_type:
     -

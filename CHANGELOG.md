@@ -1,3 +1,7 @@
+# 0.9.5 (18 May 2017)
+* Fixed handling of editors not in the workspace (#266)
+* Fixed recocnition of varibles and functions in PHP (#259)
+
 # 0.9.4 (27 Mar 2017)
 * Fixed typo regarding curly types
 

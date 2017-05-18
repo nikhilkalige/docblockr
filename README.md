@@ -210,7 +210,7 @@ You can access the configuration settings by entering `Docblockr` in atom settin
 
 - `return_tag` *(String)* The text which should be used for a `@return` tag. By default, `@return` is used, however this can be changed to `@returns` if you use that style.
 
-- `spacer_between_sections` *(Boolean|String)* If true, then extra blank lines are inserted between the sections of the docblock. If set to `"after_description"` then a spacer will only be added between the description and the first tag. Default: `false`.
+- `spacer_between_sections` *(String)* If true, then extra blank lines are inserted between the sections of the docblock. If set to `"after_description"` then a spacer will only be added between the description and the first tag. Possible values are `"true"`, `"false"` and `"after_description"`. Default: `"false"`.
 
 - `indentation_spaces_same_para` *(Number)* Described above in the *Reformatting paragraphs* section. Default: `1`
 

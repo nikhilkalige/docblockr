@@ -1,3 +1,6 @@
+# 0.10.1 (19 May 2017)
+* Fixed Uncaught TypeError in editors not in the workspace (#268)
+
 # 0.10.0 (18 May 2017)
 * Added method to automatically add `@constructor` annotations in JavaScript (#34)
 * Fixed spacer_between_sections setting (#208)

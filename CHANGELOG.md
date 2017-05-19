@@ -1,6 +1,14 @@
+# 0.10.1 (19 May 2017)
+* Fixed Uncaught TypeError in editors not in the workspace (#268)
+
+# 0.10.0 (18 May 2017)
+* Added method to automatically add `@constructor` annotations in JavaScript (#34)
+* Fixed spacer_between_sections setting (#208)
+* Fixed recognition of Java methods with an array return type (#244)
+
 # 0.9.5 (18 May 2017)
 * Fixed handling of editors not in the workspace (#266)
-* Fixed recocnition of varibles and functions in PHP (#259)
+* Fixed recognition of varibles and functions in PHP (#259)
 
 # 0.9.4 (27 Mar 2017)
 * Fixed typo regarding curly types

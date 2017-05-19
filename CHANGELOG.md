@@ -1,3 +1,6 @@
+# 0.10.3 (19 May 2017)
+* Fixed missing `@return` annotations in PHP code (#269)
+
 # 0.10.2 (19 May 2017)
 * Fixed last release
 

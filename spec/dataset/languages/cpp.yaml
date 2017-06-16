@@ -1,0 +1,41 @@
+name: CppParser
+
+parse_function:
+    -
+        - should parse a simple method
+        - void foo() {}
+        - ['foo', null, 'void']
+    -
+        - should parse a method with one argument
+        - void foo(int foo) {}
+        - ['foo', 'int foo', 'void']
+    -
+        - should parse a method with multiple arguments
+        - void foo(int bar, bool baz) {}
+        - ['foo', 'int bar, bool baz', 'void']
+    -
+        - should parse a method with return type
+        - double foo() {}
+        - ['foo', null, 'double']
+    -
+        - should parse a method with array return type
+        - char[] foo() {}
+        - ['foo', null, 'char[]']
+    -
+        - should parse a method with a template return type
+        - std::vector<char> foo() {}
+        - ['foo', null, 'std::vector<char>']
+    -
+        - should parse a method with a pointer return type
+        - char* foo() {}
+        - ['foo', null, 'char']
+
+get_function_return_type:
+    -
+        - should return `null` because `void` methods have no return type
+        - ['fooBar', 'void']
+        - null
+    -
+        - should return the retval
+        - ['fooBar', 'string']
+        - 'string'

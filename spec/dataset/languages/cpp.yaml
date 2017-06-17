@@ -47,3 +47,13 @@ get_function_return_type:
         - should return the retval
         - ['fooBar', 'string']
         - 'string'
+
+get_arg_type:
+    -
+        - should return arg's type when it's a simple primitive
+        - char foo
+        - 'char'
+    -
+        - should return arg's type even for an array
+        - char foo []
+        - 'char[]'

@@ -57,3 +57,16 @@ get_arg_type:
         - should return arg's type even for an array
         - char foo []
         - 'char[]'
+get_arg_name:
+    -
+        - should return arg's name for a simple case
+        - char foo
+        - 'foo'
+    -
+        - should return arg's name for an array
+        - int foo []
+        - 'foo'
+    -
+        - should return arg's name for a template type
+        - std::vector<int> foo
+        - 'foo'

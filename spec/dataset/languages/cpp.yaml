@@ -29,6 +29,14 @@ parse_function:
         - should parse a method with a pointer return type
         - char* foo() {}
         - ['foo', null, 'char']
+    -
+        - should parse a class's constructor method
+        - Foo::Foo() {}
+        - ['Foo::Foo', null, null]
+    -
+        - shoulod parse a class's constructor method with args
+        - Foo::Foo(int bar, char baz) {}
+        - ['Foo::Foo', 'int bar, char baz', null]
 
 get_function_return_type:
     -

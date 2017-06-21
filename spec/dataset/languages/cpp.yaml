@@ -1,0 +1,72 @@
+name: CppParser
+
+parse_function:
+    -
+        - should parse a simple method
+        - void foo() {}
+        - ['foo', null, 'void']
+    -
+        - should parse a method with one argument
+        - void foo(int foo) {}
+        - ['foo', 'int foo', 'void']
+    -
+        - should parse a method with multiple arguments
+        - void foo(int bar, bool baz) {}
+        - ['foo', 'int bar, bool baz', 'void']
+    -
+        - should parse a method with return type
+        - double foo() {}
+        - ['foo', null, 'double']
+    -
+        - should parse a method with array return type
+        - char[] foo() {}
+        - ['foo', null, 'char[]']
+    -
+        - should parse a method with a template return type
+        - std::vector<char> foo() {}
+        - ['foo', null, 'std::vector<char>']
+    -
+        - should parse a method with a pointer return type
+        - char* foo() {}
+        - ['foo', null, 'char']
+    -
+        - should parse a class's constructor method
+        - Foo::Foo() {}
+        - ['Foo::Foo', null, null]
+    -
+        - shoulod parse a class's constructor method with args
+        - Foo::Foo(int bar, char baz) {}
+        - ['Foo::Foo', 'int bar, char baz', null]
+
+get_function_return_type:
+    -
+        - should return `null` because `void` methods have no return type
+        - ['fooBar', 'void']
+        - null
+    -
+        - should return the retval
+        - ['fooBar', 'string']
+        - 'string'
+
+get_arg_type:
+    -
+        - should return arg's type when it's a simple primitive
+        - char foo
+        - 'char'
+    -
+        - should return arg's type even for an array
+        - char foo []
+        - 'char[]'
+get_arg_name:
+    -
+        - should return arg's name for a simple case
+        - char foo
+        - 'foo'
+    -
+        - should return arg's name for an array
+        - int foo []
+        - 'foo'
+    -
+        - should return arg's name for a template type
+        - std::vector<int> foo
+        - 'foo'

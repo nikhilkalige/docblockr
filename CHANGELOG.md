@@ -1,3 +1,7 @@
+# 0.10.4 (21 Jun 2017)
+* Fixed constructors in c++ (#273)
+* Fixed generic types (template) in c++ method signatures (#234)
+
 # 0.10.3 (19 May 2017)
 * Fixed missing `@return` annotations in PHP code (#269)
 

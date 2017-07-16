@@ -16,6 +16,7 @@ The package currently supports the following languages -
 * JavaScript
 * ObjC, ObjC++
 * PHP
+* Processing
 * Rust
 * SASS
 * TypeScript

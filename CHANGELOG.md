@@ -1,3 +1,6 @@
+# 0.11.0 (16 Jul 2017)
+* Add support for Processing (#275)
+
 # 0.10.6 (16 Jul 2017)
 * Fixed a subtle bug related to text inputs in Atom's docks (#278)
 * Added support for final methods in PHP (#277)

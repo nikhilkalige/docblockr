@@ -46,6 +46,14 @@ parse_function:
         - public static function foo() {}
         - ['foo', null, null]
     -
+        - should parse final function
+        - final function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse final public function
+        - final public function foo() {}
+        - ['foo', null, null]
+    -
         - should return null, because this is an invalid function declaration
         - export function foo() {}
         - null

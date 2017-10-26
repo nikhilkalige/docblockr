@@ -36,7 +36,7 @@ The main development branch is `develop` and the stable 'production' branch is `
 
 ### Docblock completion
 
-Pressing **enter** or **tab** after `/**` (or `###*` for Coffee-Script) will yield a new line and will close the comment.
+Pressing **enter** or **tab** after `/**` (or `###*` for Coffee-Script) (or `//*` for Sass) will yield a new line and will close the comment.
 
 ![](https://raw.githubusercontent.com/NikhilKalige/docblockr/master/resources/basic.gif)
 

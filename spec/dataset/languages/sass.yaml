@@ -8,7 +8,7 @@ parse_function:
     -
         - should parse function
         - '@function foo() {}'
-        - ['foo', null, null]
+        - ['foo', null, false]
     -
         - should parse mixin with params
         - '@mixin foo(foo, bar) {}'
@@ -16,18 +16,18 @@ parse_function:
     -
         - should parse function with params
         - '@function foo(foo, bar) {}'
-        - ['foo', 'foo, bar', null]
+        - ['foo', 'foo, bar', false]
     -
         - should parse function params with default values
         - '@function foo($foo: "test", $bar : "test") {}'
-        - ['foo', "$foo: \"test\", $bar : \"test\"", null]
+        - ['foo', "$foo: \"test\", $bar : \"test\"", false]
     -
         - should parse function containing weird white spaces
         - '  @function foo  (){ @return 123; }'
-        - ['foo', null, null]
+        - ['foo', null, false]
     -
         - should parse mixin without parenthesis
-        - '@mixin foo{}'
+        - '@mixin foo {}'
         - ['foo', null, null]
 
 get_arg_type:

@@ -1,3 +1,6 @@
+# 0.12.0 (32 Oct 2017) 🎃
+* Add support for SCSS (#290)
+
 # 0.11.0 (16 Jul 2017)
 * Add support for Processing (#275)
 

@@ -1,0 +1,22 @@
+env:
+  node: true
+  es6: true
+globals:
+  atom: true
+extends: 'eslint:recommended'
+rules:
+  indent:
+    - error
+    - 4
+    - SwitchCase: 1
+      CallExpression:
+        arguments: 'off'
+  linebreak-style:
+    - error
+    - unix
+  quotes:
+    - error
+    - single
+  no-unused-vars: off
+  no-empty: off
+  no-useless-escape: off

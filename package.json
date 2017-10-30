@@ -9,7 +9,8 @@
     "atom": ">0.50.0"
   },
   "scripts": {
-    "test": "cd ~/.atom/packages; atom --test docblockr/spec"
+    "test": "cd ~/.atom/packages; atom --test docblockr/spec",
+		"lint": "node_modules/eslint/bin/eslint.js ./"
   },
   "dependencies": {},
   "devDependencies": {

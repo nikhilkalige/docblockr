@@ -1,8 +1,11 @@
-# 0.12.0 (32 Oct 2017) 🎃
-* Add support for SCSS (#290)
+# 0.12.1 (1 Nov 2017)
+* Fixed language detection (all languages were considered to be JS) (#291)
+
+# 0.12.0 (31 Oct 2017) 🎃
+* Added support for SCSS (#290)
 
 # 0.11.0 (16 Jul 2017)
-* Add support for Processing (#275)
+* Added support for Processing (#275)
 
 # 0.10.6 (16 Jul 2017)
 * Fixed a subtle bug related to text inputs in Atom's docks (#278)

@@ -1,0 +1,182 @@
+name: PythonParser
+
+parse_function:
+    -
+        - should parse named function
+        - function foo() {}
+        - ['foo', 10, null]
+    -
+        - should parse function with params
+        - function foo(foo, bar) {}
+        - ['foo', 'foo, bar', null]
+    -
+        - should parse function params with default values
+        - function foo(foo = "test", bar = 'test') {}
+        - ['foo', "foo = \"test\", bar = 'test'", null]
+    -
+        - should parse function containing weird white spaces
+        -   function foo  (){ return 123; }
+        - ['foo', null, null]
+    -
+        - should return null, because this is a variable declaration
+        - $bar = foo()
+        - null
+    -
+        - should return null, because this is a variable declaration
+        - $bar = foo("baz", quaz)
+        - null
+    -
+        - should return null, because this is a function call
+        - foo({}, bar)
+        - null
+    -
+        - should return null, because this is a variable declaration with function call with anonymous function as param
+        - $bar = foo(baz, function quaz(){})
+        - null
+    -
+        - should parse named static function
+        - static function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named public function
+        - public function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse named public static function
+        - public static function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse final function
+        - final function foo() {}
+        - ['foo', null, null]
+    -
+        - should parse final public function
+        - final public function foo() {}
+        - ['foo', null, null]
+    -
+        - should return null, because this is an invalid function declaration
+        - export function foo() {}
+        - null
+    -
+        - should not parse function since it is not the next statement
+        - "$foo;\nfunction bar() {}"
+        - null
+
+get_arg_type:
+    -
+        - should return no type
+        - foo
+        - null
+    -
+        - should return "Foo" for "new Foo()"
+        - foo = new Foo()
+        - Foo
+    -
+        - should return "Foo" for "new Foo(12, bar(), x)"
+        - foo = new Foo(12, bar(), x)
+        - Foo
+    -
+        - should return "array" for "[]"
+        - foo = []
+        - array
+    -
+        - should return "array" for "[1, 2, 3]"
+        - foo = [1, 2, 3]
+        - array
+    -
+        - should return "array" for "[[12, 45], "foo", /.*/]"
+        - foo = [[12, 45], "foo", /.*/]
+        - array
+    -
+        - should return "string" for 'foo'
+        - foo = 'foo'
+        - string
+    -
+        - should return "string" for "foo" (double quote literal)
+        - foo = "foo"
+        - string
+    -
+        - should return "string" for "new Foo()" (as string)
+        - foo = 'new Foo()'
+        - string
+    -
+        - should return "string" for "123" (as string)
+        - foo = '123'
+        - string
+    -
+        - should return "string" for "[]" (as string)
+        - foo = '[]'
+        - string
+    -
+        - should return "integer" for "123"
+        - foo = 123
+        - integer
+    -
+        - should return "float" for "1.23"
+        - foo = 1.23
+        - float
+    -
+        - should return no type for "n / x"
+        - foo = n / x;
+        - null
+
+get_arg_name:
+    -
+        - should return argument "foo"
+        - foo
+        - foo
+    -
+        - should return optional argument "foo" with default value "{}"
+        - "foo = {}"
+        - foo
+    -
+        - should return optional argument "foo" with default value "[]"
+        - "foo = []"
+        - foo
+    -
+        - should return optional argument "foo" with default value "[1, 2, 3]"
+        - "foo = [1, 2, 3]"
+        - foo
+    -
+        - should return optional argument "foo" with default value "\'foo\'"
+        - "foo = 'foo'"
+        - foo
+    -
+        - should return optional argument "foo" with default value "123"
+        - foo = 123
+        - foo
+
+
+parse_var:
+    -
+        - should return var "foo" with value "{}"
+        - var foo = {}
+        - ['foo', '{}']
+    -
+        - should return var "foo" with value "[]"
+        - var foo = []
+        - ['foo', '[]']
+    -
+        - should return var "foo" with value "foo"
+        - var foo = 'foo'
+        - ['foo', "'foo'"]
+    -
+        - should return var "foo" with value "123"
+        - var foo = 123
+        - ['foo', '123']
+
+parse_class:
+    -
+        - should parse class name
+        - class test { $foo; }
+        - ['test']
+
+parse:
+    -
+        - should parse class first
+        - "class test {\n$foo;\n}"
+        - ['${1:[test description]}']
+    -
+        - should parse var first
+        - "$foo;\nfunction bar() {}"
+        - ['${1:[$foo description]}', '@var ${1:[type]}']

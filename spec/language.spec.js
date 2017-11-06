@@ -11,6 +11,7 @@ import JavaParser from '../lib/languages/java';
 import TypescriptParser from '../lib/languages/typescript';
 import ProcessingParser from '../lib/languages/processing';
 import SassParser from '../lib/languages/sass';
+import PythonParser from '../lib/languages/python';
 
 import fs from 'fs';
 import path from 'path';
@@ -28,13 +29,16 @@ let parsers = {
     JavaParser,
     TypescriptParser,
     ProcessingParser,
-    SassParser
+    SassParser,
+    PythonParser
+
 };
 
 var filepath = path.resolve(path.join(__dirname, 'dataset/languages'));
 var files = fs.readdirSync(filepath);
 
 for (let name of files) {
+    console.log name;
     let file_name = "Parser_" + name.split('.')[0];
     describe(file_name, () => {
         let parser;

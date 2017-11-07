@@ -12,7 +12,9 @@
     "test": "cd ~/.atom/packages; atom --test docblockr/spec",
     "lint": "node_modules/.bin/eslint ./"
   },
-  "dependencies": {},
+  "dependencies": {
+    "xregexp": "^3.2.0"
+  },
   "devDependencies": {
     "atom-mocha-test-runner": "0.2.2",
     "chai": "^3.5.0",

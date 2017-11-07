@@ -1,3 +1,9 @@
+# 0.12.3 (7 Nov 2017)
+* Fixed last release
+
+# 0.12.2 (7 Nov 2017)
+* Fixed a wrong undefined check, that could lead to an uncaught exception (#262)
+
 # 0.12.1 (1 Nov 2017)
 * Fixed language detection (all languages were considered to be JS) (#291)
 

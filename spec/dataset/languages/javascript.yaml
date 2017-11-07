@@ -341,3 +341,13 @@ get_function_return_type:
         - should return false because no type could be detected
         - [foo, null]
         - false
+
+is_existing_comment:
+    -
+        - should return true if line begins with "*"
+        - "* comment"
+        - true
+    -
+        - should return false if line is a object generator shorthand
+        - "* funcName(arg1, arg2, ...restArg) {}"
+        - false

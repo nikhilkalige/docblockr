@@ -195,7 +195,7 @@ parse_function:
         - function Bar() {}
         - ['Bar', null, null, {is_constructor: true}]
     -
-        - should not treat arroow functions with uppercase name as constructor
+        - should not treat arrow functions with uppercase name as constructor
         - Bar = () => {}
         - ['Bar', null, null, {}]
     -

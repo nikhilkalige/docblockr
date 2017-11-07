@@ -351,3 +351,13 @@ is_existing_comment:
         - should return false if line is a object generator shorthand
         - "* funcName(arg1, arg2, ...restArg) {}"
         - false
+
+parse_class:
+    -
+        - should parse the class name
+        - class test {}
+        - ['test', null]
+    -
+        - should parse the class name and the super class name
+        - class foo extends bar {}
+        - ['foo', 'bar']

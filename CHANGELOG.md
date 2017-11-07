@@ -1,3 +1,6 @@
+# 0.13.0 (7 Nov 2017)
+* Handle ES2015 generators in function shorthands (#292)
+
 # 0.12.3 (7 Nov 2017)
 * Fixed last release
 

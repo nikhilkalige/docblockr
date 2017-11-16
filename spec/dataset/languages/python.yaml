@@ -2,6 +2,7 @@ name: PythonParser
 
 parse_function:
     -
+<<<<<<< HEAD
         - should parse named function
         - function foo() {}
         - ['foo', 10, null]
@@ -180,3 +181,38 @@ parse:
         - should parse var first
         - "$foo;\nfunction bar() {}"
         - ['${1:[$foo description]}', '@var ${1:[type]}']
+=======
+        - should parse a simple method
+        - 'def foo():'
+        - ['foo', null, null]
+    -
+        - should parse a method with one argument
+        - 'def foo(bar):''
+        - ['foo', 'foo', null]
+    -
+        - should parse a method with multiple arguments
+        - 'def foo(bar, baz):'
+        - ['foo', 'bar, baz', null]
+    -
+        - should parse a class's constructor method
+        - 'def __init__(self):'
+        - ['__init__', null, null]
+    -
+        - shoulod parse a class's constructor method with args
+        - 'def __init__(bar, baz):'
+        - ['__init__', 'bar, baz', null]
+    -
+        - shoulod parse a method with args having default values
+        - 'def foo(bar=42, baz=58):'
+        - ['foo', 'bar=42, baz=58', null]
+
+get_arg_name:
+    -
+        - should return arg's name for a simple case
+        - foo
+        - 'foo'
+    -
+        - should return arg's name for an arg with a default value
+        - bar=12
+        - 'bar'
+>>>>>>> 0a9fc1d... Adding firsts python unit tests

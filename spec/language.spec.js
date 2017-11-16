@@ -31,7 +31,6 @@ let parsers = {
     ProcessingParser,
     SassParser,
     PythonParser
-
 };
 
 var filepath = path.resolve(path.join(__dirname, 'dataset/languages'));

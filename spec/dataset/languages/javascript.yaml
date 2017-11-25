@@ -195,7 +195,7 @@ parse_function:
         - function Bar() {}
         - ['Bar', null, null, {is_constructor: true}]
     -
-        - should not treat arroow functions with uppercase name as constructor
+        - should not treat arrow functions with uppercase name as constructor
         - Bar = () => {}
         - ['Bar', null, null, {}]
     -
@@ -341,3 +341,23 @@ get_function_return_type:
         - should return false because no type could be detected
         - [foo, null]
         - false
+
+is_existing_comment:
+    -
+        - should return true if line begins with "*"
+        - "* comment"
+        - true
+    -
+        - should return false if line is a object generator shorthand
+        - "* funcName(arg1, arg2, ...restArg) {}"
+        - false
+
+parse_class:
+    -
+        - should parse the class name
+        - class test {}
+        - ['test', null]
+    -
+        - should parse the class name and the super class name
+        - class foo extends bar {}
+        - ['foo', 'bar']

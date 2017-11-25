@@ -1,0 +1,199 @@
+name: SassParser
+
+parse_function:
+    -
+        - should parse mixin
+        - '@mixin foo() {}'
+        - ['foo', null, null]
+    -
+        - should parse function
+        - '@function foo() {}'
+        - ['foo', null, false]
+    -
+        - should parse mixin with params
+        - '@mixin foo(foo, bar) {}'
+        - ['foo', 'foo, bar', null]
+    -
+        - should parse function with params
+        - '@function foo(foo, bar) {}'
+        - ['foo', 'foo, bar', false]
+    -
+        - should parse function params with default values
+        - '@function foo($foo: "test", $bar : "test") {}'
+        - ['foo', "$foo: \"test\", $bar : \"test\"", false]
+    -
+        - should parse function containing weird white spaces
+        - '  @function foo  (){ @return 123; }'
+        - ['foo', null, false]
+    -
+        - should parse mixin without parenthesis
+        - '@mixin foo {}'
+        - ['foo', null, null]
+
+get_arg_type:
+    -
+        - should return no type
+        - $foo
+        - null
+    -
+        - should return no type for "()"
+        - "$foo: ()"
+        - null
+    -
+        - should return no type for unquoted string
+        - "$foo: blue"
+        - null
+    -
+        - should return "List" for "[1, 2, 3]"
+        - "$foo: [1, 2, 3]"
+        - list
+    -
+        - should return "List" for "(1, 2, 3)"
+        - "$foo: [1, 2, 3]"
+        - list
+    -
+        - should return "List" for "1, 2, 3"
+        - "$foo: 1, 2, 3"
+        - list
+    -
+        - should return "List" for "1 2 3"
+        - "$foo: 1 2 3"
+        - list
+    -
+        - should return "Map" for "(foo: bar)"
+        - "$foo: (foo: bar)"
+        - map
+    -
+        - should return "Map" for "(foo: 1 2)"
+        - "$foo: (foo: 1 2)"
+        - map
+    -
+        - 'should return "Map" for "(foo: (nested : item))"'
+        - "$foo: (foo: (nested : item))"
+        - map
+    -
+        - should return "String" for 'foo'
+        - "$foo: 'foo'"
+        - string
+    -
+        - should return "String" for "foo" (double quote literal)
+        - '$foo: "foo"'
+        - string
+    -
+        - should return "String" for "()" (as string)
+        - "$foo: '()'"
+        - string
+    -
+        - should return "String" for "123" (as string)
+        - "$foo: '123'"
+        - string
+    -
+        - should return "Number" for "123"
+        - "$foo: 123"
+        - number
+    -
+        - should return "Number" for "1.23"
+        - "$foo: 1.23"
+        - number
+    -
+        - should return "Number" for "1.23vmin"
+        - "$foo: 1.23vmin"
+        - number
+    -
+        - should return "Color" for "#FFF"
+        - "$foo: #FFF"
+        - color
+    -
+        - should return "Color" for "#FE12EF"
+        - "$foo: #FE12EF"
+        - color
+    -
+        - should return "Color" for "#FE12EF56"
+        - "$foo: #FE12EF56"
+        - color
+    -
+        - should return "Color" for "rgb(255,0,0)"
+        - "$foo: rgb(255,0,0)"
+        - color
+    -
+        - should return "Color" for "rgb(255,-10,0)"
+        - "$foo: rgb(255,-10,0)"
+        - color
+    -
+        - should return "Color" for "rgb(100%, 0%, 0%)"
+        - "$foo: rgb(100%, 0%, 0%)"
+        - color
+    -
+        - should return "Color" for "rgba(0,255,255, 0.1)"
+        - "$foo: rgba(0,255,255, 0.1)"
+        - color
+    -
+        - should return "Color" for "hsla(30, 100%, 50%, .1)"
+        - "$foo: hsla(30, 100%, 50%, .1)"
+        - color
+    -
+        - should return no type for "n / x"
+        - "$foo: n / x;"
+        - null
+
+get_arg_name:
+    -
+        - should return argument "$foo"
+        - $foo
+        - $foo
+    -
+        - should return optional argument "$foo" with default value "()"
+        - "$foo: ()"
+        - "$foo [()]"
+    -
+        - should return optional argument "$foo" with default value "[1, 2, 3]"
+        - "$foo: [1, 2, 3]"
+        - "$foo [[1, 2, 3]]"
+    -
+        - should return optional argument "$foo" with default value "\'foo\'"
+        - "$foo: 'foo'"
+        - "$foo ['foo']"
+    -
+        - should return optional argument "$foo" with default value "123"
+        - "$foo: 123"
+        - "$foo [123]"
+    -
+      - should return no type when passing an invalid argument
+      - "@function(invalidValue) {}"
+      - null
+
+parse_var:
+    -
+        - should return var "foo" with value "()"
+        - '$foo: ()'
+        - ['$foo', '()']
+    -
+        - should return var "$foo" with value "foo"
+        - '$foo: "foo"'
+        - ['$foo', '"foo"']
+    -
+        - should return var "foo" with value "123"
+        - '$foo: 123'
+        - ['$foo', '123']
+
+get_function_return_type:
+    -
+        - should detect type `boolean` because the name starts with `is`
+        - [isFoo, null]
+        - Boolean
+    -
+        - should detect type `boolean` because the name starts with `has`
+        - [hasFoo, null]
+        - Boolean
+    -
+        - should detect no return
+        - [setBar, null]
+        - null
+    -
+        - should detect no return
+        - [addBar, null]
+        - null
+    -
+        - should return false because no type could be detected
+        - [foo, null]
+        - false

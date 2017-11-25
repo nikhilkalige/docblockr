@@ -1,7 +1,7 @@
 {
   "name": "docblockr",
   "main": "./lib/docblockr.js",
-  "version": "0.11.0",
+  "version": "0.13.2",
   "description": "A helper package for writing documentation",
   "repository": "https://github.com/nikhilkalige/docblockr",
   "license": "MIT",
@@ -9,12 +9,16 @@
     "atom": ">0.50.0"
   },
   "scripts": {
-    "test": "cd ~/.atom/packages; atom --test docblockr/spec"
+    "test": "cd ~/.atom/packages; atom --test docblockr/spec",
+    "lint": "node_modules/.bin/eslint ./"
   },
-  "dependencies": {},
+  "dependencies": {
+    "xregexp": "^3.2.0"
+  },
   "devDependencies": {
     "atom-mocha-test-runner": "0.2.2",
     "chai": "^3.5.0",
+    "eslint": "^4.10.0",
     "js-yaml": "^3.6.1"
   },
   "consumedServices": {

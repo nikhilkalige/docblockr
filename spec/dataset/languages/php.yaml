@@ -180,3 +180,13 @@ parse:
         - should parse var first
         - "$foo;\nfunction bar() {}"
         - ['${1:[$foo description]}', '@var ${1:[type]}']
+
+parse_args:
+    -
+        - should parse array bracket syntax
+        - function foo($bar = [1, 2, 3]) {}
+        - [['array', '$bar']]
+    -
+        - should parse multi-dimensional array
+        - function foo($bar = [1, [2, 3]]) {}
+        - [['array', '$bar']]

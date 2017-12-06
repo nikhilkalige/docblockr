@@ -1,5 +1,8 @@
+# 0.13.3 (6 Dec 2017)
+* Fixed issue with new PHP array syntax in default parameters (#280)
+
 # 0.13.2 (8 Nov 2017)
-* Add support for classes in JS (#267)
+* Added support for classes in JS (#267)
 * Prevent `Uncaught TypeError: Cannot read property 'name' of null` errors while parsing arguments (#257)
 
 # 0.13.1 (7 Nov 2017)

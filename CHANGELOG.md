@@ -1,3 +1,6 @@
+# 0.13.4 (12 Dec 2017)
+* Fixed issue with the 'lower_primitives' setting for JS booleans (#299)
+
 # 0.13.3 (6 Dec 2017)
 * Fixed issue with new PHP array syntax in default parameters (#280)
 

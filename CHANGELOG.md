@@ -1,8 +1,11 @@
-# 0.13.5 (6 Jan 2017)
-* Typescript function `@params` no longer have include types (#300)
-* Typescript and JS constructor functions no longer have `@return` annotations (#300)
-* Typescript constructor function argument parser now strips `public` and `private` keywords (#300)
-* Typescript var blocks no longer include `@type` (#300)
+# 0.13.6 (15 Jan 2018)
+* Java constructors no longer get `@return` annotations (#301, #243)
+
+# 0.13.5 (6 Jan 2018)
+* TypeScript function `@params` no longer have include types (#300)
+* TypeScript and JS constructor functions no longer have `@return` annotations (#300)
+* TypeScript constructor function argument parser now strips `public` and `private` keywords (#300)
+* TypeScript var blocks no longer include `@type` (#300)
 
 # 0.13.4 (12 Dec 2017)
 * Fixed issue with the 'lower_primitives' setting for JS booleans (#299)

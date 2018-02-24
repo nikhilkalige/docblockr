@@ -1,3 +1,7 @@
+# 0.13.7 (24 Feb 2018)
+* Fixed issue with the Java argument parser: types are no longer part of the `@param` annotation
+* Fixed parsing issues in ActionScript
+
 # 0.13.6 (15 Jan 2018)
 * Java constructors no longer get `@return` annotations (#301, #243)
 

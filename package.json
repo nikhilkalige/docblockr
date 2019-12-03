@@ -9,8 +9,9 @@
     "atom": ">0.50.0"
   },
   "scripts": {
-    "test": "atom --test spec",
-    "lint": "node_modules/.bin/eslint ./"
+    "test": "npm run lint:fix && atom --test spec",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "xregexp": "^4.2.4"

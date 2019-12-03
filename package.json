@@ -18,7 +18,7 @@
   "devDependencies": {
     "@atom/mocha-test-runner": "^1.6.0",
     "chai": "^4.2.0",
-    "eslint": "^4.10.0",
+    "eslint": "^6.7.2",
     "js-yaml": "^3.13.1"
   },
   "consumedServices": {

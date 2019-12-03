@@ -44,7 +44,7 @@ for (let name of files) {
         delete dataset['name'];
 
         beforeEach(() => {
-            return atom.packages.activatePackage('docblockr')
+            return atom.packages.activatePackage(path.resolve(__dirname, '../'))
                 .then(() => {
                     parser = new parsers[parser_name](atom.config.get('docblockr'));
                 });

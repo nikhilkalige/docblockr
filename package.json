@@ -13,13 +13,13 @@
     "lint": "node_modules/.bin/eslint ./"
   },
   "dependencies": {
-    "xregexp": "^3.2.0"
+    "xregexp": "^4.2.4"
   },
   "devDependencies": {
     "atom-mocha-test-runner": "0.2.2",
-    "chai": "^3.5.0",
+    "chai": "^4.2.0",
     "eslint": "^4.10.0",
-    "js-yaml": "^3.6.1"
+    "js-yaml": "^3.13.1"
   },
   "consumedServices": {
     "snippets": {

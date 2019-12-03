@@ -9,7 +9,7 @@
     "atom": ">0.50.0"
   },
   "scripts": {
-    "test": "cd ~/.atom/packages; atom --test docblockr/spec",
+    "test": "atom --test spec",
     "lint": "node_modules/.bin/eslint ./"
   },
   "dependencies": {
@@ -28,5 +28,5 @@
       }
     }
   },
-  "atomTestRunner": "./spec/runner"
+  "atomTestRunner": "@atom/mocha-test-runner"
 }

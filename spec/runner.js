@@ -1,6 +1,6 @@
 'use babel'
 
-import {createRunner} from 'atom-mocha-test-runner'
+import {createRunner} from '@atom/mocha-test-runner'
 import {expect} from 'chai'
 global.expect = expect
 

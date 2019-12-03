@@ -60,11 +60,11 @@ get_arg_type:
         - "$foo: 1 2 3"
         - list
     -
-        - should return "Map" for "(foo: bar)"
+        - 'should return "Map" for "(foo: bar)"'
         - "$foo: (foo: bar)"
         - map
     -
-        - should return "Map" for "(foo: 1 2)"
+        - 'should return "Map" for "(foo: 1 2)"'
         - "$foo: (foo: 1 2)"
         - map
     -

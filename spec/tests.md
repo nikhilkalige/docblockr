@@ -35,13 +35,5 @@ specify the function, but thought that would make it too convoluted.
 
 ## Run tests
 
-To execute tests locally execute `atom -t docblockr/spec` from your Atom package directory (`~/.atom/packages` in most cases):
-```bash
-cd ~/.atom/packages
-atom --test docblockr/spec
-```
-
-or just:
-```bash
-npm test
-```
+To execute tests locally run `atom --test spec` in the project folder, or just `npm test`.
+You can also use Atom's GUI test runner from _View -> Developer -> Run Package Specs_.

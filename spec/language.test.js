@@ -1,20 +1,21 @@
-"use babel"
+const JsParser = require('../lib/languages/javascript');
+const CppParser = require('../lib/languages/cpp');
+const RustParser = require('../lib/languages/rust');
+const PhpParser = require('../lib/languages/php');
+const CoffeeParser = require('../lib/languages/coffee');
+const ActionscriptParser = require('../lib/languages/actionscript');
+const ObjCParser = require('../lib/languages/objc');
+const JavaParser = require('../lib/languages/java');
+const TypescriptParser = require('../lib/languages/typescript');
+const ProcessingParser = require('../lib/languages/processing');
+const SassParser = require('../lib/languages/sass');
 
-import JsParser from '../lib/languages/javascript';
-import CppParser from '../lib/languages/cpp';
-import RustParser from '../lib/languages/rust';
-import PhpParser from '../lib/languages/php';
-import CoffeeParser from '../lib/languages/coffee';
-import ActionscriptParser from '../lib/languages/actionscript';
-import ObjCParser from '../lib/languages/objc';
-import JavaParser from '../lib/languages/java';
-import TypescriptParser from '../lib/languages/typescript';
-import ProcessingParser from '../lib/languages/processing';
-import SassParser from '../lib/languages/sass';
+const fs = require('fs');
+const path = require('path');
+const yaml = require('js-yaml');
+const { expect } = require('chai');
 
-import fs from 'fs';
-import path from 'path';
-import yaml from 'js-yaml';
+const { describe, beforeEach, it } = global;
 
 // Hack to let us call parsers by filename
 let parsers = {
@@ -35,7 +36,7 @@ var filepath = path.resolve(path.join(__dirname, 'dataset/languages'));
 var files = fs.readdirSync(filepath);
 
 for (let name of files) {
-    let file_name = "Parser_" + name.split('.')[0];
+    let file_name = 'Parser_' + name.split('.')[0];
     describe(file_name, () => {
         let parser;
         let dataset = yaml.load(fs.readFileSync(path.join(filepath, name), 'utf8'));
@@ -43,7 +44,7 @@ for (let name of files) {
         delete dataset['name'];
 
         beforeEach(() => {
-            return atom.packages.activatePackage('docblockr')
+            return atom.packages.activatePackage(path.resolve(__dirname, '../'))
                 .then(() => {
                     parser = new parsers[parser_name](atom.config.get('docblockr'));
                 });

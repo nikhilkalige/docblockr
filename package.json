@@ -10,8 +10,8 @@
   },
   "scripts": {
     "test": "npm run lint:fix && atom --test spec",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "semistandard",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "xregexp": "^4.2.4"
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@atom/mocha-test-runner": "^1.6.0",
     "chai": "^4.2.0",
-    "eslint": "^6.7.2",
+    "semistandard": "^14.2.0",
     "js-yaml": "^3.13.1"
   },
   "consumedServices": {

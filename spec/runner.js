@@ -1,10 +1,6 @@
-'use babel'
-
-import {createRunner} from '@atom/mocha-test-runner'
-import {expect} from 'chai'
-global.expect = expect
+const { createRunner } = require('@atom/mocha-test-runner');
 
 module.exports = createRunner({
-    reporter: "spec",
+    reporter: 'spec',
     testSuffixes: ['spec.js', 'spec.coffee']
-})
+});

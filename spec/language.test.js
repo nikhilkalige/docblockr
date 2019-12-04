@@ -18,52 +18,52 @@ const { expect } = require('chai');
 const { describe, beforeEach, it } = global;
 
 // Hack to let us call parsers by filename
-let parsers = {
-    JsParser,
-    CppParser,
-    RustParser,
-    PhpParser,
-    CoffeeParser,
-    ActionscriptParser,
-    ObjCParser,
-    JavaParser,
-    TypescriptParser,
-    ProcessingParser,
-    SassParser
+const parsers = {
+  JsParser,
+  CppParser,
+  RustParser,
+  PhpParser,
+  CoffeeParser,
+  ActionscriptParser,
+  ObjCParser,
+  JavaParser,
+  TypescriptParser,
+  ProcessingParser,
+  SassParser
 };
 
 var filepath = path.resolve(path.join(__dirname, 'dataset/languages'));
 var files = fs.readdirSync(filepath);
 
-for (let name of files) {
-    let file_name = 'Parser_' + name.split('.')[0];
-    describe(file_name, () => {
-        let parser;
-        let dataset = yaml.load(fs.readFileSync(path.join(filepath, name), 'utf8'));
-        let parser_name = dataset['name'];
-        delete dataset['name'];
+for (const name of files) {
+  const fileName = 'Parser_' + name.split('.')[0];
+  describe(fileName, () => {
+    let parser;
+    const dataset = yaml.load(fs.readFileSync(path.join(filepath, name), 'utf8'));
+    const parserName = dataset.name;
+    delete dataset.name;
 
-        beforeEach(() => {
-            return atom.packages.activatePackage(path.resolve(__dirname, '../'))
-                .then(() => {
-                    parser = new parsers[parser_name](atom.config.get('docblockr'));
-                });
+    beforeEach(() => {
+      return global.atom.packages.activatePackage(path.resolve(__dirname, '../'))
+        .then(() => {
+          parser = new parsers[parserName](global.atom.config.get('docblockr'));
         });
-
-        for(let key in dataset) {
-            describe(key, () => {
-                dataset[key].forEach((data) => {
-                    it(data[0], () => {
-                        let out;
-                        if (Array.isArray(data[1])) {
-                            out = parser[key].apply(parser, data[1]);
-                        } else {
-                            out = parser[key](data[1]);
-                        }
-                        expect(out).to.deep.equal(data[2]);
-                    });
-                });
-            });
-        }
     });
+
+    for (const key in dataset) {
+      describe(key, () => {
+        dataset[key].forEach((data) => {
+          it(data[0], () => {
+            let out;
+            if (Array.isArray(data[1])) {
+              out = parser[key].apply(parser, data[1]);
+            } else {
+              out = parser[key](data[1]);
+            }
+            expect(out).to.deep.equal(data[2]);
+          });
+        });
+      });
+    }
+  });
 }

@@ -1,6 +1,6 @@
 name: JavaParser
 
-parse_function:
+parseFunction:
     -
         - should parse a simple method
         - void foo() {}
@@ -31,7 +31,7 @@ parse_function:
         - ['foo', null, 'char[]', null]
 
 
-get_function_return_type:
+getFunctionReturnType:
     -
         - should return `null` because `void` methods have no return
         - ['fooBar', 'void']

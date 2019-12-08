@@ -1,6 +1,6 @@
 name: JsParser
 
-parse_function:
+parseFunction:
     -
         - should parse anonymous function
         - function() {}
@@ -193,7 +193,7 @@ parse_function:
     -
         - should treat functions with uppercase name as constructor
         - function Bar() {}
-        - ['Bar', null, null, {is_constructor: true}]
+        - ['Bar', null, null, {isConstructor: true}]
     -
         - should not treat arrow functions with uppercase name as constructor
         - Bar = () => {}
@@ -205,7 +205,7 @@ parse_function:
 
 
 
-get_arg_type:
+getArgType:
     -
         - should return no type
         - foo
@@ -275,7 +275,7 @@ get_arg_type:
         - foo = n / x;
         - null
 
-get_arg_name:
+getArgName:
     -
         - should return argument "foo"
         - foo
@@ -302,7 +302,7 @@ get_arg_name:
         - "[foo=123]"
 
 
-parse_var:
+parseVar:
     -
         - should return var "foo" with value "{}"
         - var foo = {}
@@ -320,7 +320,7 @@ parse_var:
         - var foo = 123
         - ['foo', '123']
 
-get_function_return_type:
+getFunctionReturnType:
     -
         - should detect type `boolean` because the name starts with `is`
         - [isFoo, null]
@@ -342,7 +342,7 @@ get_function_return_type:
         - [foo, null]
         - false
 
-is_existing_comment:
+isExistingComment:
     -
         - should return true if line begins with "*"
         - "* comment"
@@ -352,7 +352,7 @@ is_existing_comment:
         - "* funcName(arg1, arg2, ...restArg) {}"
         - false
 
-parse_class:
+parseClass:
     -
         - should parse the class name
         - class test {}

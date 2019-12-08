@@ -1,6 +1,6 @@
 name: RustParser
 
-parse_function:
+parseFunction:
     -
         - should parse simple function
         - fn main() {}
@@ -39,7 +39,7 @@ parse_function:
         - ['is_bar', null]
 
 
-parse_var:
+parseVar:
     -
         - should parse variable declaration
         - let foo;

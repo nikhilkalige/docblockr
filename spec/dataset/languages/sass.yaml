@@ -1,6 +1,6 @@
 name: SassParser
 
-parse_function:
+parseFunction:
     -
         - should parse mixin
         - '@mixin foo() {}'
@@ -30,7 +30,7 @@ parse_function:
         - '@mixin foo {}'
         - ['foo', null, null]
 
-get_arg_type:
+getArgType:
     -
         - should return no type
         - $foo
@@ -136,7 +136,7 @@ get_arg_type:
         - "$foo: n / x;"
         - null
 
-get_arg_name:
+getArgName:
     -
         - should return argument "$foo"
         - $foo
@@ -162,7 +162,7 @@ get_arg_name:
       - "@function(invalidValue) {}"
       - null
 
-parse_var:
+parseVar:
     -
         - should return var "foo" with value "()"
         - '$foo: ()'
@@ -176,7 +176,7 @@ parse_var:
         - '$foo: 123'
         - ['$foo', '123']
 
-get_function_return_type:
+getFunctionReturnType:
     -
         - should detect type `boolean` because the name starts with `is`
         - [isFoo, null]

@@ -205,6 +205,8 @@ You can access the configuration settings by entering `Docblockr` in atom settin
 
 - `extend_double_slash` *(Boolean)* Whether double-slash comments should be extended. An example of this feature is described above. Default: `true`
 
+- `extend_triple_slash` *(Boolean)* Whether triple-slash comments should be extended. An example of this feature is described above. Default: `true`
+
 - `deep_indent` *(Boolean)* Whether pressing tab at the start of a line in docblock should indent to match the previous line's description field. An example of this feature is described above. Default: `true`
 
 - `notation_map` *(Array)* An array of notation objects. Each notation object must define either a `prefix` OR a `regex` property, and a `type` property.

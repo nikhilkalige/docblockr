@@ -234,8 +234,5 @@ All credits for this package goes to [SublimeJsdocs][jsdocs] who have created a 
 
 All features except macros have been implemented. Please create issues for bugs.
 
-### TODO
-Add test cases.
-
 [atom]: http://atom.io/
 [jsdocs]: https://github.com/spadgos/sublime-jsdocs

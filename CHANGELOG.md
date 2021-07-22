@@ -1,3 +1,8 @@
+# 0.14.0 (22 Jul 2021)
+* Fixed `//`, `//!`, and `//` not extending to new line (#331, #352)
+* Fixed Rustdoc not working (#347, #352)
+* Derusting the code base (#344, #345, #346)
+
 # 0.13.7 (24 Feb 2018)
 * Fixed issue with the Java argument parser: types are no longer part of the `@param` annotation
 * Fixed parsing issues in ActionScript

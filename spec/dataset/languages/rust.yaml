@@ -50,7 +50,7 @@ parseFunction:
         - 'fn is_bar<T, U>(a: T) -> U'
         - ['is_bar', 'a: T', 'U']
 
-parse_class:
+parseClass:
     -
         - should parse basic struct
         - struct Foo {
@@ -75,7 +75,7 @@ parse_class:
         - should parse basic enum
         - enum Foo {
         - ['Foo']
-parse_var:
+parseVar:
     -
         - should parse variable declaration
         - let foo;

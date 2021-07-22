@@ -4,41 +4,77 @@ parseFunction:
     -
         - should parse simple function
         - fn main() {}
-        - ['main', null]
+        - ['main', null, null]
+    -
+        - should parse simple public function
+        - pub fn main() {}
+        - ['main', null, null]
+    -
+        - should parse simple public crate function
+        - pub(crate) fn main() {}
+        - ['main', null, null]
     -
         - should parse function with return type
         - fn foo() -> i32 {
-        - ['foo', null]
+        - ['foo', null, 'i32']
     -
         - should parse function with params
         - 'fn bar(x: i32, y: &str) {'
-        - ['bar', null]
+        - ['bar', 'x: i32, y: &str', null]
     -
         - should parse function with params and return type
         - 'fn baz(x: i32) -> i32 {'
-        - ['baz', null]
+        - ['baz', 'x: i32', 'i32']
     -
         - should parse function with mutable reference as param
         - 'fn add_one(x: &mut i32) -> i32 {'
-        - ['add_one', null]
+        - ['add_one', 'x: &mut i32', 'i32']
     -
         - should parse function with complex return type
         - 'fn do_something(y: &mut u64) -> (i32, &str) {'
-        - ['do_something', null]
+        - ['do_something', 'y: &mut u64', '(i32, &str)']
     -
         - should parse function in uncommon syntax
         - 'fn foo  ( x  : i32   )  -> i32'
-        - ['foo', null]
+        - ['foo', 'x  : i32', 'i32']
     -
         - should parse method with normal `self` reference and return type
         - fn is_foo(&self) -> bool
-        - ['is_foo', null]
+        - ['is_foo', '&self', 'bool']
     -
         - should parse method with mutable `self` reference and extra param
-        - 'fn is_bar(&self, x: &mut Bar)'
-        - ['is_bar', null]
+        - 'fn is_bar(&mut self, x: &mut Bar)'
+        - ['is_bar', '&mut self, x: &mut Bar', null]
+    -
+        - should parse method with type definition
+        - 'fn is_bar<T, U>(a: T) -> U'
+        - ['is_bar', 'a: T', 'U']
 
-
+parseClass:
+    -
+        - should parse basic struct
+        - struct Foo {
+        - ['Foo']
+    -
+        - should parse basic public struct
+        - pub struct Foo {
+        - ['Foo']
+    -
+        - should parse basic crate public struct
+        - pub(crate) struct Foo {
+        - ['Foo']
+    -
+        - should parse basic struct with derive
+        - '#[derive(Clone)] pub(crate) struct Foo {'
+        - ['Foo']
+    -
+        - should parse basic trait
+        - trait Foo {
+        - ['Foo']
+    -
+        - should parse basic enum
+        - enum Foo {
+        - ['Foo']
 parseVar:
     -
         - should parse variable declaration

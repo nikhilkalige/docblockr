@@ -1,3 +1,6 @@
+# 0.14.1 (22 Jul 2021)
+* Update deps
+
 # 0.14.0 (22 Jul 2021)
 * Fixed `//`, `//!`, and `//` not extending to new line (#331, #352)
 * Fixed Rustdoc not working (#347, #352)

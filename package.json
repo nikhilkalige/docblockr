@@ -17,7 +17,7 @@
     "xregexp": "^4.2.4"
   },
   "devDependencies": {
-    "@atom/mocha-test-runner": "^1.6.0",
+    "@atom/mocha-test-runner": "^1.6.1",
     "chai": "^4.2.0",
     "semistandard": "^14.2.0",
     "js-yaml": "^3.13.1"
